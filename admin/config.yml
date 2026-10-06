@@ -1,0 +1,156 @@
+backend:
+  name: git-gateway
+  branch: main
+
+publish_mode: simple
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+collections:
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - name: "general"
+        label: "Stats & Contact Info"
+        file: "data/settings.json"
+        fields:
+          - { label: "Brand", name: "brand", widget: "object", fields: [
+              { label: "Logo image (leave empty to use text mark)", name: "logo", widget: "image", required: false },
+              { label: "Site / Company Name", name: "siteName", widget: "string" },
+              { label: "Homepage Headline", name: "heroHeadline", widget: "text" },
+              { label: "Homepage Subheading", name: "heroSubheading", widget: "text" },
+              { label: "Footer Tagline", name: "footerTagline", widget: "string" },
+              { label: "Footer Short Description", name: "footerDescription", widget: "text" },
+            ]}
+          - { label: "Stats", name: "stats", widget: "object", fields: [
+              { label: "Projects Completed", name: "projectsCompleted", widget: "string" },
+              { label: "Businesses Served", name: "businessesServed", widget: "string" },
+              { label: "Creative Assets Delivered", name: "assetsDelivered", widget: "string" },
+              { label: "Campaigns Managed", name: "campaignsManaged", widget: "string" },
+            ]}
+          - { label: "Contact", name: "contact", widget: "object", fields: [
+              { label: "Email", name: "email", widget: "string" },
+              { label: "Phone / WhatsApp", name: "phone", widget: "string" },
+              { label: "Address", name: "address", widget: "string" },
+              { label: "Business Hours", name: "hours", widget: "string" },
+            ]}
+
+  - name: "portfolio"
+    label: "Portfolio Projects"
+    files:
+      - name: "projects"
+        label: "Projects"
+        file: "data/projects.json"
+        fields:
+          - label: "Projects"
+            name: "items"
+            widget: "list"
+            summary: "{{title}} — {{category}}"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Slug (unique, no spaces)", name: "slug", widget: "string" }
+              - { label: "Category", name: "category", widget: "select", options: ["Marketing", "Web Design", "Branding", "Graphic Design", "Social Media", "Twitch & YouTube"] }
+              - { label: "Tag", name: "tag", widget: "string" }
+              - { label: "Short description", name: "desc", widget: "string" }
+              - { label: "Challenge", name: "challenge", widget: "text" }
+              - { label: "Approach", name: "approach", widget: "text" }
+              - { label: "Services provided", name: "services", widget: "list", field: { label: "Service", name: "service", widget: "string" } }
+              - { label: "Results", name: "results", widget: "text" }
+              - { label: "Project image", name: "image", widget: "image", required: false }
+
+  - name: "creator_graphics"
+    label: "Twitch & YouTube Graphics"
+    files:
+      - name: "creator-graphics"
+        label: "Creator Graphics Portfolio"
+        file: "data/creator-graphics.json"
+        fields:
+          - label: "Items"
+            name: "items"
+            widget: "list"
+            summary: "{{title}} — {{category}}"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Category", name: "category", widget: "select", options: ["Logo design", "YouTube banners", "Twitch overlays", "Emotes", "2D models", "3D models", "YouTube thumbnails", "Stream screens"] }
+              - { label: "Description", name: "description", widget: "text" }
+              - { label: "Image", name: "image", widget: "image", required: false }
+
+  - name: "case_studies"
+    label: "Case Studies"
+    files:
+      - name: "case-studies"
+        label: "Case Studies"
+        file: "data/case-studies.json"
+        fields:
+          - label: "Case studies"
+            name: "items"
+            widget: "list"
+            summary: "{{title}}"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Slug (unique, no spaces)", name: "slug", widget: "string" }
+              - { label: "Industry", name: "industry", widget: "string" }
+              - { label: "Challenge", name: "challenge", widget: "text" }
+              - { label: "Strategy", name: "strategy", widget: "text" }
+              - { label: "Execution", name: "execution", widget: "text" }
+              - label: "Results"
+                name: "results"
+                widget: "list"
+                fields:
+                  - { label: "Label", name: "label", widget: "string" }
+                  - { label: "Value", name: "value", widget: "string" }
+              - { label: "Key takeaway", name: "takeaway", widget: "text" }
+
+  - name: "testimonials"
+    label: "Testimonials"
+    files:
+      - name: "testimonials"
+        label: "Testimonials"
+        file: "data/testimonials.json"
+        fields:
+          - label: "Testimonials"
+            name: "items"
+            widget: "list"
+            summary: "{{name}} — {{company}}"
+            fields:
+              - { label: "Client name", name: "name", widget: "string" }
+              - { label: "Role", name: "role", widget: "string" }
+              - { label: "Company", name: "company", widget: "string" }
+              - { label: "Testimonial", name: "quote", widget: "text" }
+              - { label: "Photo", name: "photo", widget: "image", required: false }
+
+  - name: "team"
+    label: "Team"
+    files:
+      - name: "team"
+        label: "Team Members"
+        file: "data/team.json"
+        fields:
+          - label: "Team members"
+            name: "items"
+            widget: "list"
+            summary: "{{name}}"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Role", name: "role", widget: "string" }
+              - { label: "Photo", name: "photo", widget: "image", required: false }
+
+  - name: "blog"
+    label: "Blog Posts"
+    files:
+      - name: "blog-posts"
+        label: "Blog Posts"
+        file: "data/blog-posts.json"
+        fields:
+          - label: "Posts"
+            name: "items"
+            widget: "list"
+            summary: "{{title}}"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Slug (unique, no spaces)", name: "slug", widget: "string" }
+              - { label: "Category", name: "category", widget: "select", options: ["Google Ads", "Meta Ads", "SEO", "Social Media", "AI Automation", "Web Design", "Graphic Design", "Creator Economy"] }
+              - { label: "Date", name: "date", widget: "string" }
+              - { label: "Excerpt", name: "excerpt", widget: "text" }
+              - { label: "Cover image", name: "image", widget: "image", required: false }
+              - { label: "Body", name: "body", widget: "markdown" }

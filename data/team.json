@@ -1,0 +1,8 @@
+{
+  "items": [
+    { "name": "Editable name", "role": "Editable role — e.g. Founder & Strategy Lead", "photo": "" },
+    { "name": "Editable name", "role": "Editable role — e.g. Creative Director", "photo": "" },
+    { "name": "Editable name", "role": "Editable role — e.g. Paid Media Lead", "photo": "" },
+    { "name": "Editable name", "role": "Editable role — e.g. Web & Automation Lead", "photo": "" }
+  ]
+}

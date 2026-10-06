@@ -1,0 +1,58 @@
+{
+  "items": [
+    {
+      "slug": "structuring-search-campaigns",
+      "title": "How to structure Google Ads campaigns around intent, not keywords",
+      "category": "Google Ads",
+      "date": "Editable date",
+      "excerpt": "Why grouping by search intent outperforms grouping by keyword theme, and how to restructure an account around it.",
+      "image": "",
+      "body": "This article is a placeholder ready for full content. Replace this text in the CMS with the complete write-up when publishing."
+    },
+    {
+      "slug": "creative-testing-meta",
+      "title": "A simple creative testing framework for Meta Ads",
+      "category": "Meta Ads",
+      "date": "Editable date",
+      "excerpt": "A repeatable way to test ad angles and hooks without burning through budget on guesswork.",
+      "image": "",
+      "body": "This article is a placeholder ready for full content. Replace this text in the CMS with the complete write-up when publishing."
+    },
+    {
+      "slug": "technical-seo-checklist",
+      "title": "The technical SEO checks we run before touching content",
+      "category": "SEO",
+      "date": "Editable date",
+      "excerpt": "Crawlability, indexing and site speed issues that quietly cap organic growth.",
+      "image": "",
+      "body": "This article is a placeholder ready for full content. Replace this text in the CMS with the complete write-up when publishing."
+    },
+    {
+      "slug": "content-calendar-that-works",
+      "title": "Building a content calendar that survives month two",
+      "category": "Social Media",
+      "date": "Editable date",
+      "excerpt": "Most calendars fall apart by week six. Here's a structure built to hold up.",
+      "image": "",
+      "body": "This article is a placeholder ready for full content. Replace this text in the CMS with the complete write-up when publishing."
+    },
+    {
+      "slug": "ai-automation-lead-routing",
+      "title": "Where AI automation actually saves businesses time",
+      "category": "AI Automation",
+      "date": "Editable date",
+      "excerpt": "The three workflows worth automating first, and the ones not worth the effort yet.",
+      "image": "",
+      "body": "This article is a placeholder ready for full content. Replace this text in the CMS with the complete write-up when publishing."
+    },
+    {
+      "slug": "redesign-without-losing-seo",
+      "title": "How to redesign a website without losing your SEO rankings",
+      "category": "Web Design",
+      "date": "Editable date",
+      "excerpt": "A redesign checklist that protects the traffic you already have.",
+      "image": "",
+      "body": "This article is a placeholder ready for full content. Replace this text in the CMS with the complete write-up when publishing."
+    }
+  ]
+}

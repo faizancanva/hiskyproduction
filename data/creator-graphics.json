@@ -1,0 +1,12 @@
+{
+  "items": [
+    { "title": "Editable logo piece", "category": "Logo design", "description": "Distinct marks built to work at avatar size and full scale alike.", "image": "" },
+    { "title": "Editable banner piece", "category": "YouTube banners", "description": "Channel art that reads clearly across every device crop.", "image": "" },
+    { "title": "Editable overlay piece", "category": "Twitch overlays", "description": "Starting soon, BRB, offline, webcam and gameplay layouts as one visual set.", "image": "" },
+    { "title": "Editable emote piece", "category": "Emotes", "description": "Expressive, readable at 28px, built for chat.", "image": "" },
+    { "title": "Editable 2D model piece", "category": "2D models", "description": "Rigged, stream-ready 2D avatars with real personality.", "image": "" },
+    { "title": "Editable 3D model piece", "category": "3D models", "description": "Custom 3D avatars for VTuber and streaming setups.", "image": "" },
+    { "title": "Editable thumbnail piece", "category": "YouTube thumbnails", "description": "High-contrast thumbnails designed to earn the click.", "image": "" },
+    { "title": "Editable stream screen piece", "category": "Stream screens", "description": "Intermission, countdown and just-chatting screens that match the brand.", "image": "" }
+  ]
+}

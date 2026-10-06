@@ -1,0 +1,46 @@
+{
+  "items": [
+    {
+      "slug": "case-google-growth",
+      "title": "Google Ads Growth Program",
+      "industry": "Editable — industry",
+      "challenge": "Editable — the client's situation and goal before we started.",
+      "strategy": "Editable — the approach we took and why.",
+      "execution": "Editable — what we actually built and launched.",
+      "results": [
+        { "label": "Lead growth", "value": "—" },
+        { "label": "ROAS", "value": "—" },
+        { "label": "Traffic growth", "value": "—" }
+      ],
+      "takeaway": "Editable — the key lesson from this project."
+    },
+    {
+      "slug": "case-seo-rebuild",
+      "title": "SEO Visibility Rebuild",
+      "industry": "Editable — industry",
+      "challenge": "Editable — the client's situation and goal before we started.",
+      "strategy": "Editable — the approach we took and why.",
+      "execution": "Editable — what we actually built and launched.",
+      "results": [
+        { "label": "Organic traffic", "value": "—" },
+        { "label": "Ranking keywords", "value": "—" },
+        { "label": "Conversion rate", "value": "—" }
+      ],
+      "takeaway": "Editable — the key lesson from this project."
+    },
+    {
+      "slug": "case-brand-launch",
+      "title": "Full Brand & Site Launch",
+      "industry": "Editable — industry",
+      "challenge": "Editable — the client's situation and goal before we started.",
+      "strategy": "Editable — the approach we took and why.",
+      "execution": "Editable — what we actually built and launched.",
+      "results": [
+        { "label": "Revenue growth", "value": "—" },
+        { "label": "Conversion rate", "value": "—" },
+        { "label": "Time to launch", "value": "—" }
+      ],
+      "takeaway": "Editable — the key lesson from this project."
+    }
+  ]
+}

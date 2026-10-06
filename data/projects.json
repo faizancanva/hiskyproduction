@@ -1,0 +1,76 @@
+{
+  "items": [
+    {
+      "slug": "northline-search",
+      "title": "Northline Search Growth",
+      "category": "Marketing",
+      "tag": "Google Ads",
+      "desc": "Restructured search campaigns around purchase-intent keywords.",
+      "challenge": "Editable — describe the client's starting problem here.",
+      "approach": "Editable — describe the strategy and execution here.",
+      "services": ["Google Ads", "Conversion Tracking"],
+      "results": "Editable — add the measurable result here.",
+      "image": ""
+    },
+    {
+      "slug": "formwell-rebrand",
+      "title": "Formwell Rebrand",
+      "category": "Branding",
+      "tag": "Identity",
+      "desc": "A full identity system built around a single confident mark.",
+      "challenge": "Editable — describe the client's starting problem here.",
+      "approach": "Editable — describe the strategy and execution here.",
+      "services": ["Brand Identity", "Logo Design"],
+      "results": "Editable — add the measurable result here.",
+      "image": ""
+    },
+    {
+      "slug": "pier-and-co-site",
+      "title": "Pier & Co. Website",
+      "category": "Web Design",
+      "tag": "Ecommerce",
+      "desc": "A conversion-focused storefront rebuilt from the ground up.",
+      "challenge": "Editable — describe the client's starting problem here.",
+      "approach": "Editable — describe the strategy and execution here.",
+      "services": ["Web Design", "UI/UX"],
+      "results": "Editable — add the measurable result here.",
+      "image": ""
+    },
+    {
+      "slug": "loop-social-calendar",
+      "title": "Loop Social Calendar",
+      "category": "Social Media",
+      "tag": "Content",
+      "desc": "A twelve-week content system built around three brand pillars.",
+      "challenge": "Editable — describe the client's starting problem here.",
+      "approach": "Editable — describe the strategy and execution here.",
+      "services": ["Social Strategy", "Content Design"],
+      "results": "Editable — add the measurable result here.",
+      "image": ""
+    },
+    {
+      "slug": "vexel-stream-kit",
+      "title": "Vexel Stream Kit",
+      "category": "Twitch & YouTube",
+      "tag": "Overlays",
+      "desc": "A full overlay, emote and thumbnail system for a growing channel.",
+      "challenge": "Editable — describe the client's starting problem here.",
+      "approach": "Editable — describe the strategy and execution here.",
+      "services": ["Overlays", "Emotes", "Thumbnails"],
+      "results": "Editable — add the measurable result here.",
+      "image": ""
+    },
+    {
+      "slug": "arcline-meta-funnel",
+      "title": "Arcline Meta Funnel",
+      "category": "Marketing",
+      "tag": "Meta Ads",
+      "desc": "A creative-first testing framework across five ad angles.",
+      "challenge": "Editable — describe the client's starting problem here.",
+      "approach": "Editable — describe the strategy and execution here.",
+      "services": ["Meta Ads", "Creative Testing"],
+      "results": "Editable — add the measurable result here.",
+      "image": ""
+    }
+  ]
+}

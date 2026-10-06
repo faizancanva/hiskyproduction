@@ -1,0 +1,1399 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hisky Production | Digital Marketing, Creative & Web Solutions</title>
+<meta name="description" content="Hisky Production helps businesses grow through Google Ads, Meta Ads, SEO, social media marketing, AI automation, web design and creative solutions." />
+<link rel="icon" type="image/png" href="/assets/uploads/hisky-favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone@7/babel.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked@18/lib/marked.umd.js"></script>
+</head>
+<body class="antialiased">
+<div id="root">
+  <div style="padding:80px 20px;text-align:center;font-family:sans-serif;color:#8a8f9c;">Loading…</div>
+</div>
+<script>
+  // Safety net: if something fails to load (blocked CDN, script error, etc.)
+  // show a visible message instead of a silent blank page.
+  window.addEventListener('error', function (e) {
+    var banner = document.getElementById('hisky-error-banner');
+    if (!banner) {
+      banner = document.createElement('div');
+      banner.id = 'hisky-error-banner';
+      banner.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#fee2e2;color:#7f1d1d;font-family:sans-serif;font-size:13px;padding:10px 16px;z-index:99999;border-bottom:1px solid #fca5a5;';
+      document.body.prepend(banner);
+    }
+    banner.textContent = 'A script failed to load or run: ' + (e.message || 'unknown error') + '. Check your internet connection or browser console for details.';
+  });
+</script>
+
+<!--
+  Hidden static form so Netlify's build-time bots can detect and register this form.
+  Do not remove — the real form below (rendered by React) submits to this same
+  form name via fetch(). Netlify only scans the raw HTML, not JS-rendered markup.
+-->
+<form name="contact" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input type="text" name="name" />
+  <input type="text" name="company" />
+  <input type="email" name="email" />
+  <input type="text" name="phone" />
+  <input type="text" name="website" />
+  <input type="text" name="services" />
+  <input type="text" name="budget" />
+  <textarea name="message"></textarea>
+</form>
+
+<script type="text/babel" data-presets="react">
+const { useState, useEffect, useRef, useContext, createContext } = React;
+
+/* ============================== ICONS ============================== */
+const paths = {
+  arrowRight: "M4 12h16M14 6l6 6-6 6",
+  arrowUpRight: "M7 17L17 7M8 7h9v9",
+  check: "M4 12l5 5L20 6",
+  chevronDown: "M6 9l6 6 6-6",
+  menu: "M3 6h18M3 12h18M3 18h18",
+  x: "M18 6L6 18M6 6l12 12",
+  mail: "M3 6h18v12H3z M3 6l9 7 9-7",
+  phone: "M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.5 21 3 13.5 3 4c0-.6.4-1 1-1h3.2c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1L6.6 10.8z",
+  pin: "M12 21s7-6.5 7-11.5A7 7 0 0 0 5 9.5C5 14.5 12 21 12 21z M12 11.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4z",
+  clock: "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z M12 7v5l3.5 2",
+  play: "M8 5v14l11-7z",
+  target: "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M12 12h.01",
+  layers: "M12 3l9 5-9 5-9-5 9-5z M3 13l9 5 9-5 M3 8l9 5 9-5",
+  sparkle: "M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3z",
+  code: "M8 6l-6 6 6 6 M16 6l6 6-6 6",
+  palette: "M12 3a9 9 0 1 0 0 18c1.5 0 2-.7 2-1.6 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.2 0-.9.7-1.6 1.6-1.6H16a4 4 0 0 0 4-4c0-4.7-3.6-8.4-8-8.4z M7.5 12.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z M9.5 8.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z M14.5 8a1 1 0 1 0 0-2 1 1 0 0 0 0 2z",
+  bolt: "M13 2 4 14h6l-1 8 9-12h-6l1-8z",
+  trend: "M3 17l6-6 4 4 8-8 M15 7h6v6",
+  users: "M16 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M8 12a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z M2 20c0-3.3 2.7-6 6-6h.4 M14 20c0-3.6 2.7-6.5 6-6.5s6 2.9 6 6.5",
+  search: "M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16z M21 21l-4.3-4.3",
+  monitor: "M3 4h18v12H3z M8 20h8 M12 16v4",
+  robot: "M9 7V5a3 3 0 0 1 6 0v2 M5 7h14v10a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V7z M9 12h.01 M15 12h.01 M4 11h1 M19 11h1",
+  quote: "M7 8c-2 0-3.5 1.7-3.5 4S5 16 7 16v3c-3.3 0-6-3-6-6.8C1 8 3.3 5 7 5v3z M17 8c-2 0-3.5 1.7-3.5 4s1.5 4 3.5 4v3c-3.3 0-6-3-6-6.8 0-4.2 2.3-7.2 6-7.2v3z",
+  linkedin: "M4 4h16v16H4z M8 10v7 M8 7.5v.01 M12 17v-4.5c0-1.4 1-2.5 2.3-2.5 1.3 0 2.2 1 2.2 2.5V17",
+  instagram: "M4 4h16v16H4z M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M16.5 7.5v.01",
+  facebook: "M15 4h-2a4 4 0 0 0-4 4v3H7v4h2v6h4v-6h2.5l.5-4H13V8a1 1 0 0 1 1-1h2z",
+};
+function Icon({ name, size=20, className="", strokeWidth=1.7 }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" className={className}>
+      <path d={paths[name]} />
+    </svg>
+  );
+}
+
+/* ============================== STATIC DATA (fixed, edit in code) ============================== */
+const SERVICES = [
+  { slug: "google-ads", icon: "search", title: "Google Ads Management",
+    short: "Qualified traffic and conversions through data-driven paid search.",
+    hero: "Paid search that pays for itself.",
+    intro: "We plan, build and manage Google Ads accounts around one measure: cost per outcome, not cost per click. Every campaign is structured to find the searches most likely to turn into customers.",
+    deliverables: ["Search campaigns", "Performance Max", "Display & remarketing", "Keyword research & negatives", "Conversion tracking setup", "Landing page recommendations", "Monthly reporting"],
+    benefits: ["Spend goes toward searches that convert, not just clicks", "Clear reporting tied to leads and revenue, not vanity metrics", "Accounts restructured for Google's current algorithms, not 2019 best practice"],
+    process: ["Audit", "Strategy", "Launch", "Optimize", "Scale"],
+    cta: "Talk about your campaign" },
+  { slug: "meta-ads", icon: "target", title: "Facebook / Meta Ads Management",
+    short: "Strategic Meta advertising with real creative testing.",
+    hero: "Media buying and creative, working together.",
+    intro: "Meta rewards good creative more than clever targeting these days. We treat the ad itself as the strategy — testing angles, formats and hooks alongside audience and budget decisions.",
+    deliverables: ["Facebook & Instagram ads", "Lead generation campaigns", "Ecommerce & catalog campaigns", "Retargeting sequences", "Audience research", "Creative testing frameworks", "Reporting & iteration"],
+    benefits: ["Creative and media buying decided together, not handed off separately", "Structured testing instead of guessing which ad 'feels right'", "Retargeting built to match where a customer actually is in their decision"],
+    process: ["Audit", "Strategy", "Launch", "Optimize", "Scale"],
+    cta: "Talk about your campaign" },
+  { slug: "social-media", icon: "users", title: "Social Media Marketing",
+    short: "Strategy, content and consistent execution.",
+    hero: "Presence that compounds, not just posts.",
+    intro: "A content calendar without a strategy behind it just produces noise. We plan around what a brand actually has to say, then execute it consistently enough to build an audience.",
+    deliverables: ["Social strategy & content pillars", "Content calendars", "Post & reel design", "Caption writing", "Community management", "Performance analytics", "Growth strategy"],
+    benefits: ["Content built around a strategy, not a blank content calendar", "Consistent publishing without the account going quiet for weeks", "Reporting on what actually moved: reach, engagement, followers, leads"],
+    process: ["Audit", "Strategy", "Launch", "Optimize", "Scale"],
+    cta: "Plan your content" },
+  { slug: "seo", icon: "trend", title: "SEO",
+    short: "Visibility, rankings and organic growth.",
+    hero: "Rankings built to last, not to spike.",
+    intro: "SEO is slower than paid media and more durable. We combine technical fixes, content strategy and off-page work so a site earns visibility that doesn't disappear with the next algorithm update.",
+    deliverables: ["SEO audit", "Technical SEO", "Keyword research", "On-page optimization", "Content strategy", "Local SEO", "Link building", "Performance reporting"],
+    benefits: ["Technical foundation fixed before content is layered on top", "Content built around what people actually search, not guesses", "Reporting on rankings, traffic and the leads or sales behind them"],
+    process: ["Audit", "Strategy", "Launch", "Optimize", "Scale"],
+    cta: "Get an SEO strategy" },
+  { slug: "ai-automation", icon: "robot", title: "AI Automation",
+    short: "Automate workflows, lead handling and support.",
+    hero: "Turn repetitive work into a system.",
+    intro: "Most businesses lose leads and hours to manual, repeatable tasks. We build automations that route leads, answer common questions and keep a CRM up to date without someone doing it by hand.",
+    deliverables: ["Lead automation", "AI-assisted customer support", "CRM automation", "Workflow automation", "Content automation", "Business process automation", "Third-party integrations"],
+    benefits: ["Leads followed up in minutes, not whenever someone gets to it", "Fewer manual, repetitive tasks for the team", "Systems that scale without scaling headcount at the same rate"],
+    process: ["Map the workflow", "Design the system", "Build & integrate", "Test", "Monitor & refine"],
+    cta: "Explore automation" },
+  { slug: "web-design", icon: "monitor", title: "Web Design",
+    short: "Modern, responsive, conversion-focused sites.",
+    hero: "A website that does its job.",
+    intro: "A website should load fast, explain the business clearly, and make it obvious what to do next. We design and build with all three in mind, not just the visuals.",
+    deliverables: ["Business websites", "Landing pages", "Ecommerce sites", "UI/UX design", "Responsive builds", "Conversion-focused layouts", "Website redesigns"],
+    benefits: ["Design decisions tied to what visitors need to understand, not trends", "Built responsive from the first draft, not adapted afterward", "Structured for the update or redesign that comes later"],
+    process: ["Discover", "Wireframe", "Design", "Build", "Launch"],
+    cta: "Start your website project" },
+  { slug: "graphic-design", icon: "palette", title: "Graphic Design",
+    short: "Visual assets that make a brand recognizable.",
+    hero: "Design that carries a brand consistently.",
+    intro: "Consistent visuals build recognition over time. We design brand identities and ongoing creative assets so a business looks the same — and looks intentional — everywhere it shows up.",
+    deliverables: ["Brand identity", "Logo design", "Social media creative", "Ad creative", "Marketing materials", "Presentation design", "Digital graphics"],
+    benefits: ["A visual system a team can reuse, not a one-off logo file", "Assets that stay consistent across ads, social and print", "Design decisions explained, not just delivered"],
+    process: ["Discover", "Concept", "Design", "Refine", "Deliver"],
+    cta: "Start your brand project" },
+];
+
+const CREATOR_CATEGORIES = [
+  { key: "logos", label: "Logo design", desc: "Distinct marks built to work at avatar size and full scale alike." },
+  { key: "banners", label: "YouTube banners", desc: "Channel art that reads clearly across every device crop." },
+  { key: "overlays", label: "Twitch overlays", desc: "Starting soon, BRB, offline, webcam and gameplay layouts as one visual set." },
+  { key: "emotes", label: "Emotes", desc: "Expressive, readable at 28px, built for chat." },
+  { key: "2d", label: "2D models", desc: "Rigged, stream-ready 2D avatars with real personality." },
+  { key: "3d", label: "3D models", desc: "Custom 3D avatars for VTuber and streaming setups." },
+  { key: "thumbnails", label: "YouTube thumbnails", desc: "High-contrast thumbnails designed to earn the click." },
+  { key: "screens", label: "Stream screens", desc: "Intermission, countdown and just-chatting screens that match the brand." },
+];
+const PORTFOLIO_FILTERS = ["All","Marketing","Web Design","Branding","Graphic Design","Social Media","Twitch & YouTube"];
+const BLOG_CATEGORIES = ["Google Ads","Meta Ads","SEO","Social Media","AI Automation","Web Design","Graphic Design","Creator Economy"];
+const FAQS = [
+  { q:"What services does Hisky Production provide?", a:"Google Ads management, Facebook / Meta Ads management, social media marketing, SEO, AI automation, web design, graphic design, and Twitch & YouTube graphics." },
+  { q:"Do you work with international clients?", a:"Yes. Most of our work is done remotely, and we regularly work with clients across different time zones." },
+  { q:"Do you manage both Google and Meta Ads?", a:"Yes, either together as part of a broader growth plan, or independently if you only need one channel managed." },
+  { q:"How long does SEO take to show results?", a:"It depends on the site's starting point and competition, but most clients see meaningful movement within three to six months of consistent work." },
+  { q:"Can you redesign an existing website?", a:"Yes. We can rebuild an existing site from scratch or improve specific pages while keeping what already works." },
+  { q:"What does AI automation include?", a:"Lead automation, AI-assisted customer support, CRM automation, and workflow automation tailored to how your business actually operates." },
+  { q:"Do you provide monthly marketing services?", a:"Yes, most of our marketing and SEO work is run as an ongoing monthly engagement, alongside one-off project work like websites and branding." },
+  { q:"Do you design Twitch and YouTube graphics?", a:"Yes — logos, banners, overlays, emotes, 2D and 3D models, thumbnails and stream screens for streamers and creators." },
+  { q:"Can I hire Hisky for only one service?", a:"Yes. You can start with a single service and add others later as needed." },
+  { q:"How do I get started?", a:"Send us a project brief through the contact page, and we'll follow up to understand your goals before proposing next steps." },
+];
+const NAV_LINKS = [
+  { label:"Home", href:"#/" },
+  { label:"Services", href:"#/services", dropdown:true },
+  { label:"Twitch & YouTube Graphics", href:"#/twitch-youtube-graphics" },
+  { label:"Portfolio", href:"#/portfolio" },
+  { label:"Case Studies", href:"#/case-studies" },
+  { label:"About", href:"#/about" },
+  { label:"Blog", href:"#/blog" },
+];
+
+/* ============================== DEFAULT / FALLBACK CONTENT ==============================
+   Used until /data/*.json loads (and as a safe fallback if a fetch fails, e.g. when
+   opening this file directly from disk instead of via a real server). On Netlify these
+   are overridden by the live JSON files, which you edit from /admin. */
+const DEFAULTS = {
+  projects: [
+    { slug:"northline-search", title:"Northline Search Growth", category:"Marketing", tag:"Google Ads", desc:"Restructured search campaigns around purchase-intent keywords.", challenge:"Editable — describe the client's starting problem here.", approach:"Editable — describe the strategy and execution here.", services:["Google Ads","Conversion Tracking"], results:"Editable — add the measurable result here.", image:"" },
+    { slug:"formwell-rebrand", title:"Formwell Rebrand", category:"Branding", tag:"Identity", desc:"A full identity system built around a single confident mark.", challenge:"Editable — describe the client's starting problem here.", approach:"Editable — describe the strategy and execution here.", services:["Brand Identity","Logo Design"], results:"Editable — add the measurable result here.", image:"" },
+    { slug:"pier-and-co-site", title:"Pier & Co. Website", category:"Web Design", tag:"Ecommerce", desc:"A conversion-focused storefront rebuilt from the ground up.", challenge:"Editable — describe the client's starting problem here.", approach:"Editable — describe the strategy and execution here.", services:["Web Design","UI/UX"], results:"Editable — add the measurable result here.", image:"" },
+  ],
+  caseStudies: [
+    { slug:"case-google-growth", title:"Google Ads Growth Program", industry:"Editable — industry", challenge:"Editable.", strategy:"Editable.", execution:"Editable.", results:[{label:"Lead growth",value:"—"},{label:"ROAS",value:"—"},{label:"Traffic growth",value:"—"}], takeaway:"Editable." },
+  ],
+  testimonials: [
+    { name:"Editable client name", role:"Editable role", company:"Editable company", quote:"Editable placeholder — replace with a real client testimonial once available.", photo:"" },
+  ],
+  team: [
+    { name:"Editable name", role:"Editable role", photo:"" },
+  ],
+  blogPosts: [
+    { slug:"structuring-search-campaigns", title:"How to structure Google Ads campaigns around intent, not keywords", category:"Google Ads", date:"Editable date", excerpt:"Why grouping by search intent outperforms grouping by keyword theme.", image:"", body:"This article is a placeholder ready for full content." },
+  ],
+  creatorGraphics: [
+    { title:"Editable logo piece", category:"Logo design", description:"Distinct marks built to work at avatar size and full scale alike.", image:"" },
+    { title:"Editable banner piece", category:"YouTube banners", description:"Channel art that reads clearly across every device crop.", image:"" },
+    { title:"Editable overlay piece", category:"Twitch overlays", description:"Starting soon, BRB, offline, webcam and gameplay layouts as one visual set.", image:"" },
+  ],
+  settings: {
+    brand: {
+      logo: "/assets/uploads/hisky-logo.png",
+      siteName: "Hisky Production",
+      heroHeadline: "We grow brands through marketing, technology & creativity.",
+      heroSubheading: "From performance marketing and SEO to websites, AI automation and creative design, Hisky Production helps businesses build stronger digital brands and achieve measurable growth.",
+      footerTagline: "Digital Growth. Creative Production. Built to Perform.",
+      footerDescription: "A digital growth and creative production company — marketing, technology and creative work, under one roof.",
+    },
+    stats: { projectsCompleted:"Editable", businessesServed:"Editable", assetsDelivered:"Editable", campaignsManaged:"Editable" },
+    contact: { email:"hello@hiskyproduction.com", phone:"+00 000 000 0000", address:"Editable location", hours:"Mon–Fri, editable business hours" },
+  },
+};
+
+/* ============================== DATA CONTEXT (fetches /data/*.json) ============================== */
+const DataContext = createContext(DEFAULTS);
+function useSiteData() { return useContext(DataContext); }
+
+function DataProvider({ children }) {
+  const [data, setData] = useState(DEFAULTS);
+  useEffect(() => {
+    const files = {
+      projects: "data/projects.json",
+      caseStudies: "data/case-studies.json",
+      testimonials: "data/testimonials.json",
+      team: "data/team.json",
+      blogPosts: "data/blog-posts.json",
+      creatorGraphics: "data/creator-graphics.json",
+      settings: "data/settings.json",
+    };
+    Object.entries(files).forEach(([key, path]) => {
+      fetch(path).then(r => { if (!r.ok) throw new Error("not ok"); return r.json(); })
+        .then(json => {
+          setData(prev => ({ ...prev, [key]: json.items ? json.items : json }));
+        })
+        .catch(() => { /* keep default/fallback content — e.g. running from local disk */ });
+    });
+  }, []);
+  return <DataContext.Provider value={data}>{children}</DataContext.Provider>;
+}
+
+/* ============================== HELPERS ============================== */
+function useHashRoute() {
+  const [hash, setHash] = useState(window.location.hash || "#/");
+  useEffect(() => {
+    const onChange = () => setHash(window.location.hash || "#/");
+    window.addEventListener("hashchange", onChange);
+    return () => window.removeEventListener("hashchange", onChange);
+  }, []);
+  return hash;
+}
+function useReveal(deps=[]) {
+  const ref = useRef(null);
+  useEffect(() => {
+    const container = ref.current || document;
+    const els = Array.from(container.querySelectorAll(".reveal, .reveal-left, .reveal-right"));
+    if (els.length === 0) return;
+    let ticking = false;
+    function update() {
+      const vh = window.innerHeight;
+      const start = vh * 0.94;
+      const end = vh * 0.5;
+      els.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        let p = (start - rect.top) / (start - end);
+        p = Math.max(0, Math.min(1, p));
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.style.opacity = eased;
+        if (el.classList.contains("reveal-left")) {
+          el.style.transform = `translateX(${(1 - eased) * -34}px)`;
+        } else if (el.classList.contains("reveal-right")) {
+          el.style.transform = `translateX(${(1 - eased) * 34}px)`;
+        } else {
+          el.style.transform = `translateY(${(1 - eased) * 26}px) scale(${0.972 + eased * 0.028})`;
+        }
+      });
+      ticking = false;
+    }
+    function onScroll() {
+      if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
+    }
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, deps);
+  return ref;
+}
+function ParallaxLayer({ factor=0.15, className="", children }) {
+  const ref = useRef(null);
+  useEffect(() => {
+    let ticking = false;
+    function update() {
+      const el = ref.current; if (!el) { ticking = false; return; }
+      const rect = el.getBoundingClientRect();
+      const offset = (window.innerHeight / 2 - (rect.top + rect.height / 2)) * factor;
+      el.style.transform = `translate3d(0, ${offset}px, 0)`;
+      ticking = false;
+    }
+    function onScroll() {
+      if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
+    }
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [factor]);
+  return <div ref={ref} className={className}>{children}</div>;
+}
+function ScrollProgressBar() {
+  useEffect(() => {
+    const bar = document.getElementById("scroll-progress-bar");
+    let ticking = false;
+    function update() {
+      const doc = document.documentElement;
+      const max = doc.scrollHeight - doc.clientHeight;
+      const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+      if (bar) bar.style.width = pct + "%";
+      ticking = false;
+    }
+    function onScroll() {
+      if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
+    }
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+  return <div id="scroll-progress-bar"></div>;
+}
+function goTo(href) { window.location.hash = href; window.scrollTo({top:0, behavior:"instant"}); }
+function imgOrGradient(image, seedIndex) {
+  const grads = [["#155EEF","#0A1B44"],["#5B9AFF","#0F2C74"],["#0B3FC4","#155EEF"],["#0F2C74","#5B9AFF"],["#155EEF","#050B24"],["#0B3FC4","#5B9AFF"]];
+  const [c1,c2] = grads[seedIndex % grads.length];
+  if (image) return { backgroundImage: `url(${image})`, backgroundSize:"cover", backgroundPosition:"center" };
+  return { background: `linear-gradient(135deg, ${c1}, ${c2})` };
+}
+
+/* ============================== SHARED UI ============================== */
+function Button({ children, variant="primary", href, onClick, className="", type="button" }) {
+  const ref = useRef(null);
+  const [pos, setPos] = useState({x:0,y:0});
+  const base = "btn-shine relative overflow-hidden inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-[15px] font-medium transition-[transform,box-shadow,background-color] duration-300 ease-out active:scale-[0.96] will-change-transform";
+  const styles = {
+    primary: "bg-gradient-to-r from-blue to-blue-deep text-white shadow-lg shadow-blue/30 hover:shadow-xl hover:shadow-blue/40 hover:-translate-y-0.5",
+    dark: "bg-gradient-to-br from-navy-mid to-navy text-white shadow-lg shadow-navy/30 hover:-translate-y-0.5",
+    ghost: "bg-transparent text-blue-deep border border-blue/25 hover:border-blue/60 hover:bg-blue-mist/50",
+    ghostLight: "bg-transparent text-white border border-white/25 hover:border-white/60 hover:bg-white/10",
+    light: "bg-white text-ink hover:bg-white/90 hover:-translate-y-0.5",
+  };
+  function onMove(e) {
+    const el = ref.current; if (!el) return;
+    const r = el.getBoundingClientRect();
+    const relX = (e.clientX - r.left - r.width/2) * 0.18;
+    const relY = (e.clientY - r.top - r.height/2) * 0.35;
+    setPos({ x: relX, y: relY });
+  }
+  function onLeave() { setPos({x:0,y:0}); }
+  const cls = base + " " + styles[variant] + " " + className;
+  const style = { transform: `translate(${pos.x}px, ${pos.y}px)` };
+  const handlers = { onMouseMove:onMove, onMouseLeave:onLeave, style };
+  if (href) return <a ref={ref} href={href} className={cls} onClick={onClick} {...handlers}>{children}</a>;
+  return <button ref={ref} type={type} className={cls} onClick={onClick} {...handlers}>{children}</button>;
+}
+function SectionHeading({ eyebrow, title, sub, align="left" }) {
+  return (
+    <div className={"max-w-2xl " + (align==="center" ? "mx-auto text-center" : "")}>
+      {eyebrow && <p className="text-blue text-sm font-medium mb-3">{eyebrow}</p>}
+      <h2 className="font-display text-3xl md:text-[2.5rem] leading-[1.1] font-semibold text-ink">{title}</h2>
+      {sub && <p className="mt-4 text-[17px] leading-relaxed text-ink/60">{sub}</p>}
+    </div>
+  );
+}
+function Logo({ light }) {
+  const { settings } = useSiteData();
+  const brand = settings.brand || DEFAULTS.settings.brand;
+  const initial = (brand.siteName || "H").trim().charAt(0).toUpperCase() || "H";
+  return (
+    <a href="#/" onClick={()=>goTo('#/')} className="flex items-center gap-2.5 shrink-0">
+      {brand.logo ? (
+        <img src={brand.logo} alt={brand.siteName} className="w-8 h-8 rounded-lg object-cover shrink-0" />
+      ) : (
+        <span className={"w-8 h-8 rounded-lg flex items-center justify-center font-display font-bold text-[15px] " + (light ? "bg-white text-blue" : "bg-gradient-to-br from-blue to-blue-deep text-white shadow-md shadow-blue/30")}>{initial}</span>
+      )}
+      <span className={"font-display font-semibold tracking-tight text-[17px] " + (light ? "text-white" : "text-ink")}>{brand.siteName}</span>
+    </a>
+  );
+}
+function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
+  useEffect(() => {
+    let lastY = window.scrollY;
+    let ticking = false;
+    function update() {
+      const y = window.scrollY;
+      setScrolled(y > 12);
+      if (y > lastY + 4 && y > 120) setHidden(true);
+      else if (y < lastY - 4 || y < 120) setHidden(false);
+      lastY = y;
+      ticking = false;
+    }
+    function onScroll() {
+      if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  return (
+    <header className={"fixed top-0 inset-x-0 z-50 transition-all duration-400 " + (scrolled ? "bg-white/80 backdrop-blur-xl border-b border-line py-2.5 shadow-[0_8px_30px_-15px_rgba(21,94,239,0.25)]" : "bg-white/0 py-5") + " " + (hidden && !open ? "nav-hide" : "nav-show")}>
+      <div className="max-w-[1240px] mx-auto px-6 flex items-center justify-between">
+        <Logo />
+        <nav className="hidden lg:flex items-center gap-8">
+          {NAV_LINKS.map((l) => l.dropdown ? (
+            <div key={l.href} className="relative" onMouseEnter={()=>setServicesOpen(true)} onMouseLeave={()=>setServicesOpen(false)}>
+              <button className="nav-link flex items-center gap-1 text-[14.5px] text-ink/75 hover:text-ink transition" onClick={()=>goTo(l.href)}>
+                {l.label} <Icon name="chevronDown" size={14} className={"transition-transform duration-300 " + (servicesOpen ? "rotate-180" : "")} />
+              </button>
+              <div className={"absolute top-full left-1/2 -translate-x-1/2 pt-3 w-[560px] transition-all duration-250 origin-top " + (servicesOpen ? "opacity-100 translate-y-0 scale-100 pointer-events-auto" : "opacity-0 -translate-y-2 scale-[0.98] pointer-events-none")}>
+                  <div className="bg-white/95 backdrop-blur-xl rounded-2xl border border-line shadow-2xl shadow-blue/10 p-3 grid grid-cols-2 gap-1">
+                    {SERVICES.map((s) => (
+                      <a key={s.slug} href={"#/services/"+s.slug} onClick={()=>goTo("#/services/"+s.slug)}
+                        className="group flex items-start gap-3 p-3 rounded-xl hover:bg-blue-mist/60 transition-colors duration-200">
+                        <span className="w-9 h-9 rounded-lg bg-blue-mist text-blue flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"><Icon name={s.icon} size={17} /></span>
+                        <span>
+                          <span className="block text-[14px] font-medium text-ink">{s.title}</span>
+                          <span className="block text-[12.5px] text-ink/50 mt-0.5">{s.short}</span>
+                        </span>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+            </div>
+          ) : (
+            <a key={l.href} href={l.href} onClick={()=>goTo(l.href)} className="nav-link text-[14.5px] text-ink/75 hover:text-ink transition">{l.label}</a>
+          ))}
+        </nav>
+        <div className="hidden lg:block">
+          <Button href="#/contact" onClick={()=>goTo('#/contact')} className="!px-5 !py-2.5">Get a quote</Button>
+        </div>
+        <button className="lg:hidden w-10 h-10 flex items-center justify-center" onClick={()=>setOpen(!open)} aria-label="Toggle menu">
+          <Icon name={open ? "x" : "menu"} size={22} />
+        </button>
+      </div>
+      {open && (
+        <div className="lg:hidden bg-white border-t border-line px-6 py-6 flex flex-col gap-1">
+          {NAV_LINKS.map((l) => (
+            <a key={l.href} href={l.href} onClick={()=>{goTo(l.href); setOpen(false);}} className="py-3 text-[15px] text-ink/80 border-b border-line/70">{l.label}</a>
+          ))}
+          {SERVICES.map((s) => (
+            <a key={s.slug} href={"#/services/"+s.slug} onClick={()=>{goTo("#/services/"+s.slug); setOpen(false);}} className="py-2 pl-4 text-[13.5px] text-ink/55">{s.title}</a>
+          ))}
+          <Button href="#/contact" onClick={()=>{goTo('#/contact'); setOpen(false);}} className="mt-4 justify-center">Get a quote</Button>
+        </div>
+      )}
+    </header>
+  );
+}
+function Footer() {
+  const { settings } = useSiteData();
+  const brand = settings.brand || DEFAULTS.settings.brand;
+  return (
+    <footer className="bg-gradient-to-b from-navy to-navy-deep text-white/70 pt-20 pb-8 relative overflow-hidden">
+      <ParallaxLayer factor={0.1} className="absolute -top-40 -left-32 w-[420px] h-[420px]"><div className="blob blob-a w-full h-full bg-blue/20"></div></ParallaxLayer>
+      <div className="max-w-[1240px] mx-auto px-6 relative">
+        <div className="grid md:grid-cols-[1.4fr_1fr_1fr_1fr] gap-12 pb-14 border-b border-white/10">
+          <div>
+            <Logo light />
+            <p className="mt-5 text-[14.5px] leading-relaxed max-w-xs text-white/50">
+              {brand.footerDescription}
+            </p>
+            <div className="flex gap-3 mt-6">
+              {["instagram","facebook","linkedin"].map((i) => (
+                <a key={i} href="#" className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center hover:border-white/40 transition"><Icon name={i} size={15} /></a>
+              ))}
+            </div>
+          </div>
+          <div>
+            <p className="text-white text-[13.5px] font-medium mb-4">Services</p>
+            <ul className="space-y-2.5 text-[14px]">
+              {SERVICES.slice(0,7).map(s => <li key={s.slug}><a href={"#/services/"+s.slug} onClick={()=>goTo("#/services/"+s.slug)} className="hover:text-white transition">{s.title}</a></li>)}
+            </ul>
+          </div>
+          <div>
+            <p className="text-white text-[13.5px] font-medium mb-4">Creative</p>
+            <ul className="space-y-2.5 text-[14px]">
+              <li><a href="#/twitch-youtube-graphics" onClick={()=>goTo('#/twitch-youtube-graphics')} className="hover:text-white transition">Twitch & YouTube Graphics</a></li>
+              <li><a href="#/portfolio" onClick={()=>goTo('#/portfolio')} className="hover:text-white transition">Portfolio</a></li>
+              <li><a href="#/case-studies" onClick={()=>goTo('#/case-studies')} className="hover:text-white transition">Case Studies</a></li>
+            </ul>
+          </div>
+          <div>
+            <p className="text-white text-[13.5px] font-medium mb-4">Company</p>
+            <ul className="space-y-2.5 text-[14px]">
+              <li><a href="#/about" onClick={()=>goTo('#/about')} className="hover:text-white transition">About</a></li>
+              <li><a href="#/blog" onClick={()=>goTo('#/blog')} className="hover:text-white transition">Blog</a></li>
+              <li><a href="#/contact" onClick={()=>goTo('#/contact')} className="hover:text-white transition">Contact</a></li>
+              <li><a href="#" className="hover:text-white transition">Privacy Policy</a></li>
+              <li><a href="#" className="hover:text-white transition">Terms & Conditions</a></li>
+            </ul>
+          </div>
+        </div>
+        <div className="pt-8 flex flex-col sm:flex-row justify-between items-center gap-3 text-[13px] text-white/40">
+          <p>© 2026 Hisky Production. All rights reserved.</p>
+          <p>{brand.footerTagline}</p>
+        </div>
+      </div>
+    </footer>
+  );
+}
+function FAQAccordion({ items }) {
+  const [openIdx, setOpenIdx] = useState(0);
+  return (
+    <div className="divide-y divide-line border-t border-b border-line">
+      {items.map((item, i) => (
+        <div key={i}>
+          <button onClick={()=>setOpenIdx(openIdx===i?-1:i)} className="w-full flex items-center justify-between gap-6 py-5 text-left group">
+            <span className={"text-[15.5px] font-medium transition-colors duration-300 " + (openIdx===i ? "text-blue" : "text-ink group-hover:text-blue")}>{item.q}</span>
+            <span className={"shrink-0 w-7 h-7 rounded-full border flex items-center justify-center text-lg leading-none transition-all duration-300 " + (openIdx===i ? "rotate-45 bg-blue border-blue text-white" : "border-line text-ink/60 group-hover:border-blue/40")}>+</span>
+          </button>
+          <div className={"overflow-hidden transition-all duration-400 ease-out " + (openIdx===i ? "max-h-40 pb-5" : "max-h-0")}>
+            <p className="text-[14.5px] text-ink/60 leading-relaxed pr-10">{item.a}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+function StatBlock({ value, label }) {
+  return (
+    <div className="text-center sm:text-left">
+      <p className="font-display text-3xl md:text-4xl font-semibold text-white"><AnimatedNumber value={value} /></p>
+      <p className="text-[13.5px] text-white/60 mt-1">{label}</p>
+    </div>
+  );
+}
+function CTASection({ title, sub, primary="Get a free consultation", secondary="View our work" }) {
+  const ref = useReveal();
+  return (
+    <section ref={ref} className="bg-gradient-to-br from-navy via-navy to-blue-deep py-24 relative overflow-hidden">
+      <ParallaxLayer factor={0.1} className="absolute -top-40 -right-24 w-[420px] h-[420px]"><div className="blob blob-a w-full h-full bg-blue/30"></div></ParallaxLayer>
+      <ParallaxLayer factor={-0.12} className="absolute -bottom-32 left-10 w-[320px] h-[320px]"><div className="blob blob-b w-full h-full bg-blue-bright/20"></div></ParallaxLayer>
+      <div className="max-w-[1240px] mx-auto px-6 relative">
+        <div className="max-w-xl reveal">
+          <h2 className="font-display text-3xl md:text-[2.6rem] leading-[1.1] font-semibold text-white">{title}</h2>
+          <p className="mt-4 text-white/55 text-[16px]">{sub}</p>
+          <div className="mt-9 flex flex-wrap gap-4">
+            <Button href="#/contact" onClick={()=>goTo('#/contact')}>{primary}</Button>
+            <Button href="#/portfolio" onClick={()=>goTo('#/portfolio')} variant="ghostLight">{secondary}</Button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+function MediaBox({ image, seedIndex=0, className="", style={} }) {
+  return <div className={className} style={{...imgOrGradient(image, seedIndex), ...style}}></div>;
+}
+function ProjectCard({ p, i }) {
+  return (
+    <a href={"#/portfolio/"+p.slug} onClick={()=>goTo("#/portfolio/"+p.slug)} className="group block reveal">
+      <div className="relative rounded-2xl overflow-hidden aspect-[4/3]">
+        <MediaBox image={p.image} seedIndex={i} className="absolute inset-0 transition-transform duration-500 group-hover:scale-105" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/0 to-transparent"></div>
+        <span className="absolute top-4 left-4 text-[11.5px] font-medium bg-white/90 text-ink px-3 py-1 rounded-full">{p.category}</span>
+      </div>
+      <div className="mt-4 flex items-start justify-between gap-3">
+        <div>
+          <h3 className="font-display text-[17px] font-semibold text-ink">{p.title}</h3>
+          <p className="text-[13.5px] text-ink/50 mt-1">{p.desc}</p>
+        </div>
+        <span className="shrink-0 w-9 h-9 rounded-full border border-line flex items-center justify-center text-ink/40 group-hover:bg-blue group-hover:text-white group-hover:border-blue transition"><Icon name="arrowUpRight" size={15} /></span>
+      </div>
+    </a>
+  );
+}
+
+/* ============================== PAGE: HOME ============================== */
+function TiltCard({ children, className="" }) {
+  const ref = useRef(null);
+  const [style, setStyle] = useState({ transform: "perspective(900px) rotateX(0deg) rotateY(0deg)" });
+  function onMove(e) {
+    const el = ref.current; if (!el) return;
+    const r = el.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width - 0.5;
+    const py = (e.clientY - r.top) / r.height - 0.5;
+    setStyle({ transform: `perspective(900px) rotateX(${(-py*7).toFixed(2)}deg) rotateY(${(px*9).toFixed(2)}deg)` });
+  }
+  function onLeave() { setStyle({ transform: "perspective(900px) rotateX(0deg) rotateY(0deg)" }); }
+  return <div ref={ref} onMouseMove={onMove} onMouseLeave={onLeave} className={"tilt-card " + className} style={style}>{children}</div>;
+}
+function AnimatedNumber({ value }) {
+  const ref = useRef(null);
+  const [display, setDisplay] = useState(null);
+  const match = typeof value === "string" ? value.match(/^(\d+)(.*)$/) : null;
+  useEffect(() => {
+    if (!match) { setDisplay(value); return; }
+    const target = parseInt(match[1], 10);
+    const suffix = match[2] || "";
+    const el = ref.current;
+    let started = false;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && !started) {
+          started = true;
+          const duration = 1200;
+          const startTime = performance.now();
+          function tick(now) {
+            const progress = Math.min(1, (now - startTime) / duration);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            setDisplay(Math.round(eased * target) + suffix);
+            if (progress < 1) requestAnimationFrame(tick);
+          }
+          requestAnimationFrame(tick);
+        }
+      });
+    }, { threshold: 0.4 });
+    if (el) io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return <span ref={ref}>{display !== null ? display : value}</span>;
+}
+function Hero() {
+  const [barsIn, setBarsIn] = useState(false);
+  const { settings } = useSiteData();
+  const brand = settings.brand || DEFAULTS.settings.brand;
+  useEffect(() => { const t = setTimeout(()=>setBarsIn(true), 300); return ()=>clearTimeout(t); }, []);
+  return (
+    <section className="pt-40 pb-20 md:pt-52 md:pb-28 relative overflow-hidden">
+      <ParallaxLayer factor={0.12} className="absolute -top-32 -right-32 w-[460px] h-[460px]"><div className="blob blob-a w-full h-full bg-blue/15"></div></ParallaxLayer>
+      <ParallaxLayer factor={-0.08} className="absolute top-40 -left-32 w-[320px] h-[320px]"><div className="blob blob-b w-full h-full bg-blue-bright/10"></div></ParallaxLayer>
+      <div className="max-w-[1240px] mx-auto px-6 grid lg:grid-cols-[1.1fr_0.9fr] gap-16 items-center relative">
+        <div className="route-fade">
+          <p className="inline-flex items-center gap-2 text-blue text-sm font-medium mb-5 bg-blue-mist/70 border border-blue/10 px-3.5 py-1.5 rounded-full">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue opacity-60"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-blue"></span>
+            </span>
+            Digital growth & creative production
+          </p>
+          <h1 className="font-display text-[2.5rem] leading-[1.08] sm:text-5xl md:text-[3.4rem] font-semibold tracking-tight grad-text">
+            {brand.heroHeadline}
+          </h1>
+          <p className="mt-6 text-[17px] text-ink/60 leading-relaxed max-w-lg">
+            {brand.heroSubheading}
+          </p>
+          <div className="mt-9 flex flex-wrap gap-4">
+            <Button href="#/contact" onClick={()=>goTo('#/contact')}>Get a free consultation</Button>
+            <Button href="#/portfolio" onClick={()=>goTo('#/portfolio')} variant="ghost">View our work</Button>
+          </div>
+        </div>
+        <div className="relative route-fade" style={{animationDelay:"120ms"}}>
+          <TiltCard className="rounded-3xl bg-gradient-to-br from-panel to-navy-deep p-5 shadow-2xl shadow-blue/20 relative border border-white/5">
+            <div className="flex items-center gap-2 mb-4"><span className="w-2.5 h-2.5 rounded-full bg-white/20"></span><span className="w-2.5 h-2.5 rounded-full bg-white/20"></span><span className="w-2.5 h-2.5 rounded-full bg-white/20"></span></div>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="col-span-2 bg-white/[0.05] rounded-xl p-4">
+                <p className="text-white/40 text-[11px] mb-3">Campaign performance</p>
+                <div className="flex items-end gap-1.5 h-16">
+                  {[40,55,35,70,50,85,65,95].map((h,i) => <div key={i} className="flex-1 bg-gradient-to-t from-blue to-blue-bright rounded-t transition-all duration-700 ease-out" style={{height:(barsIn?h:6)+"%", transitionDelay:(i*60)+"ms"}}></div>)}
+                </div>
+              </div>
+              <div className="bg-white/[0.05] rounded-xl p-4">
+                <p className="text-white/40 text-[11px] mb-2">Organic traffic</p>
+                <p className="text-white font-display text-xl font-semibold flex items-center gap-1.5"><Icon name="trend" size={16} className="text-blue-bright"/> Growth</p>
+              </div>
+              <div className="bg-white/[0.05] rounded-xl p-4">
+                <p className="text-white/40 text-[11px] mb-2">Automation</p>
+                <div className="flex items-center gap-1.5 text-white/70 text-[11px]"><Icon name="bolt" size={13} className="text-blue-bright"/> Lead → CRM → Follow-up</div>
+              </div>
+            </div>
+          </TiltCard>
+          <div className="float-slow absolute -bottom-6 -left-6 bg-white rounded-2xl shadow-xl shadow-blue/10 p-4 w-44 hidden sm:block border border-line">
+            <div className="flex items-center gap-2 mb-1"><Icon name="palette" size={14} className="text-blue"/><p className="text-[11.5px] font-medium">Creative set</p></div>
+            <p className="text-[11px] text-ink/45">Overlays · Thumbnails · Brand assets</p>
+          </div>
+          <div className="float-slow-delay absolute -top-5 -right-3 bg-white rounded-xl shadow-lg shadow-blue/10 px-3.5 py-2.5 hidden sm:flex items-center gap-2 border border-line">
+            <span className="w-7 h-7 rounded-full bg-blue-mist text-blue flex items-center justify-center"><Icon name="check" size={13} /></span>
+            <p className="text-[11.5px] font-medium text-ink">Campaign live</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+function TrustStrip() {
+  const { settings } = useSiteData();
+  const s = settings.stats || DEFAULTS.settings.stats;
+  return (
+    <section className="py-10 bg-gradient-to-r from-blue to-blue-deep relative overflow-hidden">
+      <div className="max-w-[1240px] mx-auto px-6 grid grid-cols-2 sm:grid-cols-4 gap-8 relative">
+        <StatBlock value={s.projectsCompleted} label="Projects completed" />
+        <StatBlock value={s.businessesServed} label="Businesses served" />
+        <StatBlock value={s.assetsDelivered} label="Creative assets delivered" />
+        <StatBlock value={s.campaignsManaged} label="Campaigns managed" />
+      </div>
+    </section>
+  );
+}
+function ServicesGrid() {
+  const ref = useReveal();
+  return (
+    <section ref={ref} className="py-24 max-w-[1240px] mx-auto px-6">
+      <SectionHeading eyebrow="Services" title="Everything you need to grow online" sub="Strategy, marketing, technology and creative production — under one roof." />
+      <div className="mt-14 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {SERVICES.map((s, i) => (
+          <a key={s.slug} href={"#/services/"+s.slug} onClick={()=>goTo("#/services/"+s.slug)}
+            className="reveal group p-7 rounded-2xl border border-line bg-white hover:border-blue/40 hover:shadow-xl hover:shadow-blue/10 hover:-translate-y-1.5 transition-all duration-300" style={{transitionDelay:(i*40)+"ms"}}>
+            <span className="w-11 h-11 rounded-xl bg-blue-mist text-blue flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6 group-hover:bg-blue group-hover:text-white"><Icon name={s.icon} size={19} /></span>
+            <h3 className="font-display text-[17px] font-semibold text-ink mt-5">{s.title}</h3>
+            <p className="text-[14px] text-ink/55 mt-2 leading-relaxed">{s.short}</p>
+            <span className="mt-5 flex items-center gap-1.5 text-[13.5px] text-blue font-medium">Learn more <Icon name="arrowRight" size={14} className="group-hover:translate-x-1 transition-transform duration-300" /></span>
+          </a>
+        ))}
+      </div>
+    </section>
+  );
+}
+function WhyHisky() {
+  const ref = useReveal();
+  const items = [
+    { icon:"target", title:"Strategy first", desc:"Every project starts with understanding the business, audience and goals." },
+    { icon:"sparkle", title:"Creative + performance", desc:"Marketing and creative work are connected instead of treated as separate services." },
+    { icon:"trend", title:"Data driven", desc:"Performance data and insight guide continuous improvement of campaigns and experiences." },
+    { icon:"layers", title:"Built for growth", desc:"Sustainable systems and better customer experiences, built for the long term." },
+  ];
+  return (
+    <section ref={ref} className="py-24 bg-paper">
+      <div className="max-w-[1240px] mx-auto px-6 grid lg:grid-cols-[0.8fr_1.2fr] gap-14">
+        <SectionHeading eyebrow="Why Hisky" title="More than a digital marketing agency." sub="We combine strategy, performance, technology and creative production to build digital systems that actually support business growth." />
+        <div className="grid sm:grid-cols-2 gap-5">
+          {items.map((it,i) => (
+            <div key={i} className="reveal group bg-white rounded-2xl p-6 border border-line transition-all duration-300 hover:shadow-lg hover:shadow-blue/10 hover:-translate-y-1" style={{transitionDelay:(i*60)+"ms"}}>
+              <span className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue to-blue-deep text-white flex items-center justify-center shadow-lg shadow-blue/25 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6"><Icon name={it.icon} size={17} /></span>
+              <h3 className="font-display text-[16px] font-semibold text-ink mt-4">{it.title}</h3>
+              <p className="text-[13.5px] text-ink/55 mt-2 leading-relaxed">{it.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+function FeaturedWork() {
+  const { projects } = useSiteData();
+  const ref = useReveal([projects.length]);
+  return (
+    <section ref={ref} className="py-24 max-w-[1240px] mx-auto px-6">
+      <div className="flex flex-wrap items-end justify-between gap-6">
+        <SectionHeading eyebrow="Portfolio" title="Work that speaks for itself." />
+        <Button href="#/portfolio" onClick={()=>goTo('#/portfolio')} variant="ghost">View all projects</Button>
+      </div>
+      <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {projects.slice(0,6).map((p,i) => <ProjectCard key={p.slug} p={p} i={i} />)}
+      </div>
+    </section>
+  );
+}
+function ResultsSection() {
+  const { caseStudies } = useSiteData();
+  const ref = useReveal([caseStudies.length]);
+  return (
+    <section ref={ref} className="py-24 bg-paper">
+      <div className="max-w-[1240px] mx-auto px-6">
+        <SectionHeading eyebrow="Results" title="Creative is better when it performs." sub="We combine creative execution with measurable marketing outcomes — every case study is built on the same three questions: what was the challenge, what did we do, and what changed." />
+        <div className="mt-12 grid md:grid-cols-3 gap-6">
+          {caseStudies.slice(0,3).map((c,i) => (
+            <div key={c.slug} className="reveal group bg-white rounded-2xl border border-line p-7 flex flex-col transition-all duration-300 hover:shadow-xl hover:shadow-blue/10 hover:-translate-y-1.5 hover:border-blue/30" style={{transitionDelay:(i*70)+"ms"}}>
+              <h3 className="font-display text-[17px] font-semibold text-ink">{c.title}</h3>
+              <p className="text-[12.5px] text-ink/45 mt-1">{c.industry}</p>
+              <div className="mt-5 grid grid-cols-3 gap-3">
+                {c.results.map((r,j) => (
+                  <div key={j}><p className="font-display text-lg font-semibold text-blue"><AnimatedNumber value={r.value} /></p><p className="text-[11px] text-ink/45 mt-0.5">{r.label}</p></div>
+                ))}
+              </div>
+              <a href={"#/case-studies"} onClick={()=>goTo('#/case-studies')} className="mt-6 text-[13.5px] font-medium text-ink group-hover:text-blue flex items-center gap-1.5 transition-colors">Read case study <Icon name="arrowRight" size={14} className="group-hover:translate-x-1 transition-transform duration-300" /></a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+function CreatorSection() {
+  const ref = useReveal();
+  return (
+    <section ref={ref} className="py-24 bg-gradient-to-b from-navy-deep via-navy to-navy-deep relative overflow-hidden">
+      <ParallaxLayer factor={0.1} className="absolute -top-20 right-0 w-[500px] h-[500px]"><div className="blob blob-a w-full h-full bg-blue/25"></div></ParallaxLayer>
+      <ParallaxLayer factor={-0.1} className="absolute bottom-0 left-0 w-[300px] h-[300px]"><div className="blob blob-b w-full h-full bg-blue-bright/15"></div></ParallaxLayer>
+      <div className="max-w-[1240px] mx-auto px-6 relative">
+        <div className="max-w-xl reveal">
+          <p className="text-blue-bright text-sm font-medium mb-4">Twitch & YouTube Graphics</p>
+          <h2 className="font-display text-3xl md:text-[2.5rem] font-semibold text-white leading-[1.1]">Make your channel impossible to ignore.</h2>
+          <p className="mt-4 text-white/55 text-[16px]">Professional visual assets for streamers, YouTubers, gamers and creators who want their brand to look as good as their content.</p>
+          <Button href="#/twitch-youtube-graphics" onClick={()=>goTo('#/twitch-youtube-graphics')} variant="light" className="mt-8">Explore creator graphics</Button>
+        </div>
+        <div className="mt-14 grid grid-cols-2 sm:grid-cols-4 gap-4">
+          {CREATOR_CATEGORIES.map((c,i) => (
+            <div key={c.key} className="reveal group aspect-square rounded-2xl bg-white/[0.04] border border-white/10 p-4 flex flex-col justify-end transition-all duration-300 hover:bg-white/[0.08] hover:border-blue-bright/40 hover:-translate-y-1.5 cursor-default" style={{transitionDelay:(i*40)+"ms"}}>
+              <span className="w-8 h-8 rounded-lg bg-blue-bright/20 text-blue-bright flex items-center justify-center mb-2 transition-transform duration-300 group-hover:scale-110"><Icon name="sparkle" size={14} /></span>
+              <p className="text-white text-[13px] font-medium">{c.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+function ProcessSection() {
+  const ref = useReveal();
+  const steps = [
+    { n:"01", t:"Discover", d:"Understand your business, audience and goals." },
+    { n:"02", t:"Strategize", d:"Build the right strategy and creative direction." },
+    { n:"03", t:"Build", d:"Launch campaigns, websites, designs and systems." },
+    { n:"04", t:"Optimize", d:"Measure performance and continuously improve." },
+  ];
+  return (
+    <section ref={ref} className="py-24 max-w-[1240px] mx-auto px-6">
+      <SectionHeading eyebrow="Process" title="From idea to impact." />
+      <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-line rounded-2xl overflow-hidden border border-line">
+        {steps.map((s,i) => (
+          <div key={i} className="reveal group relative bg-white p-7 transition-colors duration-300 hover:bg-blue-mist/40" style={{transitionDelay:(i*60)+"ms"}}>
+            <p className="font-display grad-text text-3xl font-semibold transition-transform duration-300 group-hover:scale-105 inline-block">{s.n}</p>
+            <h3 className="font-display text-[16px] font-semibold text-ink mt-4">{s.t}</h3>
+            <p className="text-[13.5px] text-ink/55 mt-2 leading-relaxed">{s.d}</p>
+            <span className="absolute bottom-0 left-7 right-7 h-[2px] bg-gradient-to-r from-blue to-blue-bright scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-400"></span>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+function TestimonialsSection() {
+  const { testimonials } = useSiteData();
+  const ref = useReveal([testimonials.length]);
+  return (
+    <section ref={ref} className="py-24 bg-paper">
+      <div className="max-w-[1240px] mx-auto px-6">
+        <SectionHeading eyebrow="Testimonials" title="What our clients say" align="center" />
+        <div className="mt-12 grid md:grid-cols-3 gap-6">
+          {testimonials.slice(0,3).map((t,i) => (
+            <div key={i} className="reveal group bg-white rounded-2xl border border-line p-7 transition-all duration-300 hover:shadow-xl hover:shadow-blue/10 hover:-translate-y-1.5 hover:border-blue/30" style={{transitionDelay:(i*70)+"ms"}}>
+              <Icon name="quote" size={22} className="text-blue/30 transition-colors duration-300 group-hover:text-blue/60" />
+              <p className="text-[14.5px] text-ink/70 leading-relaxed mt-4">{t.quote}</p>
+              <div className="flex items-center gap-3 mt-6">
+                <MediaBox image={t.photo} seedIndex={i} className="w-10 h-10 rounded-full bg-blue/10 ring-2 ring-transparent group-hover:ring-blue/20 transition-all" />
+                <div><p className="text-[13.5px] font-medium text-ink">{t.name}</p><p className="text-[12px] text-ink/45">{t.role}, {t.company}</p></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+function FAQSection() {
+  const ref = useReveal();
+  return (
+    <section ref={ref} className="py-24 max-w-[820px] mx-auto px-6">
+      <SectionHeading eyebrow="FAQ" title="Common questions" align="center" />
+      <div className="mt-12 reveal"><FAQAccordion items={FAQS} /></div>
+    </section>
+  );
+}
+function HomePage() {
+  return (
+    <>
+      <Hero /><TrustStrip /><ServicesGrid /><WhyHisky /><FeaturedWork /><ResultsSection />
+      <CreatorSection /><ProcessSection /><TestimonialsSection /><FAQSection />
+      <CTASection title="Ready to grow your brand?" sub="Tell us what you're building. We'll help you figure out the next move." />
+    </>
+  );
+}
+
+/* ============================== PAGE: SERVICES ============================== */
+function ServicesOverviewPage() {
+  const ref = useReveal();
+  const heroRef = useReveal();
+  return (
+    <>
+      <section ref={heroRef} className="pt-40 pb-16 max-w-[1240px] mx-auto px-6">
+        <p className="reveal text-blue text-sm font-medium mb-4">Services</p>
+        <h1 className="reveal font-display text-4xl md:text-5xl font-semibold text-ink max-w-2xl leading-[1.1]" style={{transitionDelay:"60ms"}}>Digital services built around your goals.</h1>
+        <p className="reveal mt-5 text-ink/60 text-[17px] max-w-xl" style={{transitionDelay:"120ms"}}>Hisky Production combines marketing, creative and technology into one team — so campaigns, design and websites are built to work together, not around each other.</p>
+      </section>
+      <section ref={ref} className="max-w-[1240px] mx-auto px-6 pb-28 grid md:grid-cols-2 gap-5">
+        {SERVICES.map((s,i) => (
+          <a key={s.slug} href={"#/services/"+s.slug} onClick={()=>goTo("#/services/"+s.slug)}
+            className="reveal group p-8 rounded-2xl border border-line bg-white hover:border-blue/40 hover:shadow-lg hover:shadow-blue/5 transition-all" style={{transitionDelay:(i*30)+"ms"}}>
+            <span className="w-12 h-12 rounded-xl bg-blue-mist text-blue flex items-center justify-center"><Icon name={s.icon} size={20} /></span>
+            <h2 className="font-display text-xl font-semibold text-ink mt-6">{s.title}</h2>
+            <p className="text-[14.5px] text-ink/55 mt-2.5 leading-relaxed">{s.short}</p>
+            <div className="flex flex-wrap gap-2 mt-5">
+              {s.deliverables.slice(0,3).map(d => <span key={d} className="text-[12px] text-ink/50 border border-line rounded-full px-3 py-1">{d}</span>)}
+            </div>
+            <span className="mt-6 flex items-center gap-1.5 text-[13.5px] text-blue font-medium">View service <Icon name="arrowRight" size={14} className="group-hover:translate-x-1 transition-transform" /></span>
+          </a>
+        ))}
+      </section>
+      <CTASection title="Not sure which service fits?" sub="Tell us what you're trying to achieve and we'll recommend the right starting point." />
+    </>
+  );
+}
+function ServiceDetailPage({ slug }) {
+  const s = SERVICES.find(x => x.slug === slug) || SERVICES[0];
+  const ref = useReveal([slug]);
+  const heroRef = useReveal([slug]);
+  return (
+    <>
+      <section ref={heroRef} className="pt-40 pb-16 max-w-[1240px] mx-auto px-6">
+        <a href="#/services" onClick={()=>goTo('#/services')} className="text-[13.5px] text-ink/50 hover:text-ink flex items-center gap-1.5 mb-8"><Icon name="arrowRight" size={13} className="rotate-180" /> All services</a>
+        <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-14 items-start">
+          <div className="reveal-left">
+            <span className="w-12 h-12 rounded-xl bg-blue-mist text-blue flex items-center justify-center"><Icon name={s.icon} size={20} /></span>
+            <h1 className="font-display text-4xl md:text-5xl font-semibold text-ink mt-6 leading-[1.1]">{s.hero}</h1>
+            <p className="mt-5 text-ink/60 text-[17px] leading-relaxed">{s.intro}</p>
+            <Button href="#/contact" onClick={()=>goTo('#/contact')} className="mt-8">{s.cta}</Button>
+          </div>
+          <div className="reveal-right rounded-2xl bg-panel p-6" style={{transitionDelay:"120ms"}}>
+            <p className="text-white/40 text-[12px] mb-4">Process</p>
+            <div className="space-y-0">
+              {s.process.map((p,i) => (
+                <div key={p} className="flex items-center gap-4 py-3 border-b border-white/10 last:border-0">
+                  <span className="font-display text-blue-bright text-[13px] font-semibold w-5">{String(i+1).padStart(2,'0')}</span>
+                  <span className="text-white/80 text-[14px]">{p}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+      <section ref={ref} className="max-w-[1240px] mx-auto px-6 pb-24 grid md:grid-cols-2 gap-14">
+        <div className="reveal">
+          <h2 className="font-display text-2xl font-semibold text-ink mb-5">What's included</h2>
+          <ul className="space-y-3">
+            {s.deliverables.map(d => (
+              <li key={d} className="flex items-center gap-3 text-[14.5px] text-ink/70"><span className="w-6 h-6 rounded-full bg-blue-mist text-blue flex items-center justify-center shrink-0"><Icon name="check" size={12} /></span>{d}</li>
+            ))}
+          </ul>
+        </div>
+        <div className="reveal" style={{transitionDelay:"100ms"}}>
+          <h2 className="font-display text-2xl font-semibold text-ink mb-5">Why it works</h2>
+          <ul className="space-y-4">
+            {s.benefits.map(b => (
+              <li key={b} className="text-[14.5px] text-ink/70 leading-relaxed pl-5 border-l-2 border-blue/30">{b}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+      <CTASection title={s.cta + "."} sub="Send a short brief and we'll follow up with next steps within a couple of days." />
+    </>
+  );
+}
+
+/* ============================== PAGE: TWITCH/YOUTUBE GRAPHICS ============================== */
+function CreatorGraphicsPage() {
+  const [filter, setFilter] = useState("All");
+  const { creatorGraphics } = useSiteData();
+  const ref = useReveal([filter, creatorGraphics.length]);
+  const heroRef = useReveal();
+  const filters = ["All", ...CREATOR_CATEGORIES.map(c=>c.label)];
+  const visible = filter === "All" ? creatorGraphics : creatorGraphics.filter(c => c.category === filter);
+  return (
+    <>
+      <section ref={heroRef} className="pt-40 pb-16 max-w-[1240px] mx-auto px-6">
+        <div className="reveal">
+          <p className="text-blue text-sm font-medium mb-4">Twitch & YouTube Graphics</p>
+          <h1 className="font-display text-4xl md:text-5xl font-semibold text-ink max-w-2xl leading-[1.1]">Build a channel that looks as good as your content.</h1>
+          <p className="mt-5 text-ink/60 text-[17px] max-w-xl">Professional graphics for YouTubers, streamers, gamers and creators.</p>
+        </div>
+      </section>
+      <section className="max-w-[1240px] mx-auto px-6 pb-8 flex flex-wrap gap-2">
+        {filters.map(f => (
+          <button key={f} onClick={()=>setFilter(f)} className={"px-4 py-2 rounded-full text-[13.5px] border transition " + (filter===f ? "bg-blue text-white border-blue" : "border-line text-ink/60 hover:border-blue/40 hover:text-blue")}>{f}</button>
+        ))}
+      </section>
+      <section ref={ref} className="max-w-[1240px] mx-auto px-6 pb-28 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {visible.length === 0 && (
+          <p className="col-span-full text-center text-ink/40 text-[14px] py-10">No pieces in this category yet — add some from the admin panel.</p>
+        )}
+        {visible.map((c,i) => (
+          <div key={c.title+i} className="reveal group rounded-2xl overflow-hidden border border-line bg-white transition-all duration-300 hover:shadow-xl hover:shadow-blue/10 hover:-translate-y-1" style={{transitionDelay:((i%6)*40)+"ms"}}>
+            <MediaBox image={c.image} seedIndex={i} className="aspect-[4/3] transition-transform duration-500 group-hover:scale-[1.03]" />
+            <div className="p-5">
+              <p className="text-[11.5px] text-blue font-medium">{c.category}</p>
+              <p className="text-[14px] font-medium text-ink mt-1">{c.title}</p>
+              <p className="text-[13px] text-ink/55 mt-1.5 leading-relaxed">{c.description}</p>
+            </div>
+          </div>
+        ))}
+      </section>
+      <CTASection title="Have a channel in mind?" sub="Send us your brand, game or niche and we'll put together creative options." primary="Get a free consultation" secondary="View portfolio" />
+    </>
+  );
+}
+
+/* ============================== PAGE: PORTFOLIO ============================== */
+function PortfolioPage() {
+  const [filter, setFilter] = useState("All");
+  const { projects } = useSiteData();
+  const ref = useReveal([filter, projects.length]);
+  const heroRef = useReveal();
+  const visible = filter === "All" ? projects : projects.filter(p => p.category === filter);
+  return (
+    <>
+      <section ref={heroRef} className="pt-40 pb-14 max-w-[1240px] mx-auto px-6">
+        <div className="reveal">
+          <p className="text-blue text-sm font-medium mb-4">Portfolio</p>
+          <h1 className="font-display text-4xl md:text-5xl font-semibold text-ink leading-[1.1]">Selected work.</h1>
+        </div>
+      </section>
+      <section className="max-w-[1240px] mx-auto px-6 pb-8 flex flex-wrap gap-2">
+        {PORTFOLIO_FILTERS.map(f => (
+          <button key={f} onClick={()=>setFilter(f)} className={"px-4 py-2 rounded-full text-[13.5px] border transition " + (filter===f ? "bg-blue text-white border-blue" : "border-line text-ink/60 hover:border-blue/40 hover:text-blue")}>{f}</button>
+        ))}
+      </section>
+      <section ref={ref} className="max-w-[1240px] mx-auto px-6 pb-28 grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {visible.map((p,i) => <ProjectCard key={p.slug} p={p} i={i} />)}
+      </section>
+      <CTASection title="Want to see how we'd approach your project?" sub="Share a few details and we'll put together relevant examples." />
+    </>
+  );
+}
+function ProjectDetailPage({ slug }) {
+  const { projects } = useSiteData();
+  const p = projects.find(x => x.slug === slug);
+  const i = projects.findIndex(x => x.slug === slug);
+  const ref = useReveal([slug]);
+  if (!p) return <div className="pt-40 pb-28 max-w-[1240px] mx-auto px-6"><p>Project not found.</p></div>;
+  return (
+    <div ref={ref}>
+      <section className="pt-40 pb-10 max-w-[1240px] mx-auto px-6 reveal">
+        <a href="#/portfolio" onClick={()=>goTo('#/portfolio')} className="text-[13.5px] text-ink/50 hover:text-ink flex items-center gap-1.5 mb-8"><Icon name="arrowRight" size={13} className="rotate-180" /> All projects</a>
+        <p className="text-blue text-sm font-medium mb-3">{p.category}</p>
+        <h1 className="font-display text-4xl md:text-5xl font-semibold text-ink leading-[1.1] max-w-2xl">{p.title}</h1>
+      </section>
+      <section className="max-w-[1240px] mx-auto px-6">
+        <MediaBox image={p.image} seedIndex={i} className="reveal w-full aspect-[16/8] rounded-3xl" style={{transitionDelay:"80ms"}} />
+      </section>
+      <section className="max-w-[1240px] mx-auto px-6 py-16 grid md:grid-cols-3 gap-10">
+        <div className="reveal"><h3 className="text-[12.5px] uppercase tracking-wide text-ink/40 mb-2">Challenge</h3><p className="text-[14.5px] text-ink/70 leading-relaxed">{p.challenge}</p></div>
+        <div className="reveal" style={{transitionDelay:"80ms"}}><h3 className="text-[12.5px] uppercase tracking-wide text-ink/40 mb-2">Our approach</h3><p className="text-[14.5px] text-ink/70 leading-relaxed">{p.approach}</p></div>
+        <div className="reveal" style={{transitionDelay:"160ms"}}><h3 className="text-[12.5px] uppercase tracking-wide text-ink/40 mb-2">Results</h3><p className="text-[14.5px] text-ink/70 leading-relaxed">{p.results}</p></div>
+      </section>
+      <section className="max-w-[1240px] mx-auto px-6 pb-24 flex flex-wrap gap-2 reveal">
+        {(p.services||[]).map(s => <span key={s} className="text-[12.5px] border border-line rounded-full px-3.5 py-1.5 text-ink/60">{s}</span>)}
+      </section>
+      <CTASection title="Have a similar project in mind?" sub="Tell us about it and we'll put together an approach." />
+    </div>
+  );
+}
+
+/* ============================== PAGE: CASE STUDIES ============================== */
+function CaseStudiesPage() {
+  const { caseStudies } = useSiteData();
+  const ref = useReveal([caseStudies.length]);
+  const heroRef = useReveal();
+  return (
+    <>
+      <section ref={heroRef} className="pt-40 pb-16 max-w-[1240px] mx-auto px-6">
+        <div className="reveal">
+          <p className="text-blue text-sm font-medium mb-4">Case Studies</p>
+          <h1 className="font-display text-4xl md:text-5xl font-semibold text-ink max-w-2xl leading-[1.1]">Outcomes, not just output.</h1>
+          <p className="mt-5 text-ink/60 text-[17px] max-w-xl">Every case study below follows the same structure: the challenge going in, the strategy we used, how we executed it, and what changed.</p>
+        </div>
+      </section>
+      <section ref={ref} className="max-w-[1240px] mx-auto px-6 pb-28 space-y-6">
+        {caseStudies.map((c,i) => (
+          <div key={c.slug} className="reveal border border-line rounded-2xl p-8 md:p-10 bg-white" style={{transitionDelay:(i*60)+"ms"}}>
+            <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
+              <div><p className="text-[12.5px] text-blue font-medium">{c.industry}</p><h2 className="font-display text-2xl font-semibold text-ink mt-1">{c.title}</h2></div>
+              <div className="flex gap-6">
+                {c.results.map(r => <div key={r.label}><p className="font-display text-xl font-semibold text-ink">{r.value}</p><p className="text-[11.5px] text-ink/45">{r.label}</p></div>)}
+              </div>
+            </div>
+            <div className="grid md:grid-cols-4 gap-8">
+              <div><h3 className="text-[12px] uppercase tracking-wide text-ink/40 mb-2">Challenge</h3><p className="text-[13.5px] text-ink/65 leading-relaxed">{c.challenge}</p></div>
+              <div><h3 className="text-[12px] uppercase tracking-wide text-ink/40 mb-2">Strategy</h3><p className="text-[13.5px] text-ink/65 leading-relaxed">{c.strategy}</p></div>
+              <div><h3 className="text-[12px] uppercase tracking-wide text-ink/40 mb-2">Execution</h3><p className="text-[13.5px] text-ink/65 leading-relaxed">{c.execution}</p></div>
+              <div><h3 className="text-[12px] uppercase tracking-wide text-ink/40 mb-2">Key takeaway</h3><p className="text-[13.5px] text-ink/65 leading-relaxed">{c.takeaway}</p></div>
+            </div>
+          </div>
+        ))}
+      </section>
+      <CTASection title="Want results like these for your business?" sub="Let's talk about where you're starting from and what growth should look like." />
+    </>
+  );
+}
+
+/* ============================== PAGE: ABOUT ============================== */
+function AboutPage() {
+  const { team } = useSiteData();
+  const ref = useReveal([team.length]);
+  return (
+    <>
+      <section className="pt-40 pb-20 max-w-[1240px] mx-auto px-6">
+        <div className="reveal">
+          <p className="text-blue text-sm font-medium mb-4">About</p>
+          <h1 className="font-display text-4xl md:text-5xl font-semibold text-ink max-w-2xl leading-[1.1]">We build digital experiences that move businesses forward.</h1>
+        </div>
+      </section>
+      <section className="max-w-[1240px] mx-auto px-6 pb-24 grid md:grid-cols-2 gap-14">
+        <div className="reveal-left">
+          <h2 className="font-display text-2xl font-semibold text-ink mb-4">Who we are</h2>
+          <p className="text-[15px] text-ink/65 leading-relaxed">Hisky Production is a digital growth and creative production company. We work across paid media, SEO, social media, AI automation, web design and graphic design — and build creative assets for streamers and creators — so a brand's marketing, technology and creative work move in the same direction.</p>
+        </div>
+        <div className="reveal-right" style={{transitionDelay:"80ms"}}>
+          <h2 className="font-display text-2xl font-semibold text-ink mb-4">Our mission</h2>
+          <p className="text-[15px] text-ink/65 leading-relaxed">To help businesses build stronger brands and grow through modern digital strategy — combining performance marketing with creative and technical execution, rather than treating them as separate services.</p>
+        </div>
+      </section>
+      <section className="bg-paper py-24">
+        <div className="max-w-[1240px] mx-auto px-6">
+          <div className="reveal"><SectionHeading eyebrow="Difference" title="What makes us different" /></div>
+          <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {[["target","Strategy"],["palette","Creativity"],["code","Technology"],["trend","Performance"]].map(([icon,label],i) => (
+              <div key={label} className="reveal group bg-white rounded-2xl border border-line p-6 transition-all duration-300 hover:shadow-lg hover:shadow-blue/10 hover:-translate-y-1" style={{transitionDelay:(i*50)+"ms"}}>
+                <span className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue to-blue-deep text-white flex items-center justify-center shadow-lg shadow-blue/25 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6"><Icon name={icon} size={17} /></span>
+                <p className="font-display text-[16px] font-semibold text-ink mt-4">{label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section className="max-w-[1240px] mx-auto px-6 py-24">
+        <div className="reveal"><SectionHeading eyebrow="Values" title="Our values" /></div>
+        <div className="mt-10 flex flex-wrap gap-3">
+          {["Creativity","Results","Transparency","Innovation","Growth"].map((v,i) => (
+            <span key={v} className="reveal px-5 py-2.5 rounded-full border border-line bg-white text-[14px] text-ink/70 transition-all duration-300 hover:border-blue/40 hover:text-blue hover:-translate-y-0.5" style={{transitionDelay:(i*40)+"ms"}}>{v}</span>
+          ))}
+        </div>
+      </section>
+      <section className="bg-paper py-24">
+        <div className="max-w-[1240px] mx-auto px-6">
+          <div className="reveal"><SectionHeading eyebrow="Team" title="Our team" /></div>
+          <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {team.map((t,i) => (
+              <div key={i} className="reveal text-center group" style={{transitionDelay:(i*50)+"ms"}}>
+                <MediaBox image={t.photo} seedIndex={i} className="w-full aspect-square rounded-2xl mb-4 transition-transform duration-300 group-hover:scale-[1.03]" />
+                <p className="text-[14.5px] font-medium text-ink">{t.name}</p>
+                <p className="text-[12.5px] text-ink/45 mt-0.5">{t.role}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      <CTASection title="Let's build something great together." sub="Tell us about your business and where you want it to go." />
+    </>
+  );
+}
+
+/* ============================== PAGE: BLOG ============================== */
+function BlogPage() {
+  const [cat, setCat] = useState("All");
+  const { blogPosts } = useSiteData();
+  const ref = useReveal([cat, blogPosts.length]);
+  const heroRef = useReveal();
+  const featuredRef = useReveal([blogPosts.length]);
+  const visible = cat === "All" ? blogPosts : blogPosts.filter(p => p.category === cat);
+  const featured = blogPosts[0];
+  return (
+    <>
+      <section ref={heroRef} className="pt-40 pb-14 max-w-[1240px] mx-auto px-6">
+        <div className="reveal">
+          <p className="text-blue text-sm font-medium mb-4">Blog</p>
+          <h1 className="font-display text-4xl md:text-5xl font-semibold text-ink leading-[1.1]">Notes on marketing, design & growth.</h1>
+        </div>
+      </section>
+      {featured && (
+        <section ref={featuredRef} className="max-w-[1240px] mx-auto px-6 pb-16">
+          <a href={"#/blog/"+featured.slug} onClick={()=>goTo("#/blog/"+featured.slug)} className="reveal group grid md:grid-cols-2 gap-8 items-center rounded-3xl border border-line overflow-hidden bg-white hover:shadow-xl hover:shadow-blue/10 transition-shadow duration-300">
+            <MediaBox image={featured.image} seedIndex={1} className="aspect-[16/10] md:aspect-auto md:h-full transition-transform duration-500 group-hover:scale-[1.02]" />
+            <div className="p-8 md:p-10">
+              <p className="text-[11.5px] text-blue font-medium">{featured.category} · {featured.date}</p>
+              <h2 className="font-display text-2xl font-semibold text-ink mt-3 leading-snug">{featured.title}</h2>
+              <p className="text-[14px] text-ink/55 mt-3 leading-relaxed">{featured.excerpt}</p>
+              <span className="mt-6 flex items-center gap-1.5 text-[13.5px] text-ink font-medium">Read article <Icon name="arrowRight" size={14} className="group-hover:translate-x-1 transition-transform" /></span>
+            </div>
+          </a>
+        </section>
+      )}
+      <section className="max-w-[1240px] mx-auto px-6 pb-8 flex flex-wrap gap-2">
+        {["All", ...BLOG_CATEGORIES].map(c => (
+          <button key={c} onClick={()=>setCat(c)} className={"px-4 py-2 rounded-full text-[13.5px] border transition " + (cat===c ? "bg-blue text-white border-blue" : "border-line text-ink/60 hover:border-blue/40 hover:text-blue")}>{c}</button>
+        ))}
+      </section>
+      <section ref={ref} className="max-w-[1240px] mx-auto px-6 pb-28 grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {visible.map((p,i) => (
+          <a key={p.slug} href={"#/blog/"+p.slug} onClick={()=>goTo("#/blog/"+p.slug)} className="reveal group block" style={{transitionDelay:(i*40)+"ms"}}>
+            <MediaBox image={p.image} seedIndex={i} className="aspect-[4/3] rounded-2xl transition-transform duration-500 group-hover:scale-[1.03]" />
+            <p className="text-[11.5px] text-blue font-medium mt-4">{p.category} · {p.date}</p>
+            <h3 className="font-display text-[16px] font-semibold text-ink mt-2 leading-snug">{p.title}</h3>
+            <p className="text-[13.5px] text-ink/50 mt-2 leading-relaxed">{p.excerpt}</p>
+          </a>
+        ))}
+      </section>
+    </>
+  );
+}
+function BlogPostPage({ slug }) {
+  const { blogPosts } = useSiteData();
+  const p = blogPosts.find(x => x.slug === slug);
+  const ref = useReveal([slug]);
+  if (!p) return <div className="pt-40 pb-28 max-w-[760px] mx-auto px-6"><p>Article not found.</p></div>;
+  const html = React.useMemo(() => {
+    try { return window.marked ? window.marked.parse(p.body || "") : (p.body||"").replace(/\n/g,"<br/>"); }
+    catch(e) { return p.body || ""; }
+  }, [p.body]);
+  return (
+    <section ref={ref} className="pt-40 pb-28 max-w-[760px] mx-auto px-6">
+      <a href="#/blog" onClick={()=>goTo('#/blog')} className="text-[13.5px] text-ink/50 hover:text-ink flex items-center gap-1.5 mb-8"><Icon name="arrowRight" size={13} className="rotate-180" /> Back to blog</a>
+      <div className="reveal">
+        <p className="text-blue text-sm font-medium mb-3">{p.category} · {p.date}</p>
+        <h1 className="font-display text-3xl md:text-4xl font-semibold text-ink leading-[1.15]">{p.title}</h1>
+      </div>
+      <MediaBox image={p.image} seedIndex={2} className="reveal w-full aspect-[16/9] rounded-2xl my-10" style={{transitionDelay:"100ms"}} />
+      <div className="reveal prose-hisky" style={{transitionDelay:"180ms"}} dangerouslySetInnerHTML={{ __html: html }}></div>
+    </section>
+  );
+}
+
+/* ============================== PAGE: CONTACT ============================== */
+function encodeForm(data) {
+  return Object.keys(data).map(k => encodeURIComponent(k) + "=" + encodeURIComponent(data[k])).join("&");
+}
+function ContactPage() {
+  const { settings } = useSiteData();
+  const contact = settings.contact || DEFAULTS.settings.contact;
+  const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
+  const [services, setServices] = useState([]);
+  const [budget, setBudget] = useState("");
+  const ref = useReveal();
+  const toggle = (s) => setServices(services.includes(s) ? services.filter(x=>x!==s) : [...services, s]);
+  const budgets = ["Under $500","$500–$1,000","$1,000–$2,500","$2,500+"];
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    setSending(true); setError("");
+    const form = e.target;
+    const payload = {
+      "form-name": "contact",
+      name: form.name.value,
+      company: form.company.value,
+      email: form.email.value,
+      phone: form.phone.value,
+      website: form.website.value,
+      services: services.join(", "),
+      budget: budget,
+      message: form.message.value,
+    };
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: encodeForm(payload),
+    }).then(() => setSent(true))
+      .catch(() => setError("Something went wrong sending this — please email us directly instead."))
+      .finally(() => setSending(false));
+  }
+
+  return (
+    <section ref={ref} className="pt-40 pb-28 max-w-[1240px] mx-auto px-6 grid lg:grid-cols-[1fr_1.2fr] gap-16">
+      <div className="reveal-left">
+        <p className="text-blue text-sm font-medium mb-4">Contact</p>
+        <h1 className="font-display text-4xl font-semibold text-ink leading-[1.1]">Let's talk about your project.</h1>
+        <p className="mt-5 text-ink/60 text-[16px] leading-relaxed">Tell us what you're trying to achieve and we'll help you figure out the right next step.</p>
+        <div className="mt-10 space-y-5">
+          <div className="flex items-center gap-3 text-[14.5px] text-ink/70"><Icon name="mail" size={17} className="text-blue" /> {contact.email}</div>
+          <div className="flex items-center gap-3 text-[14.5px] text-ink/70"><Icon name="phone" size={17} className="text-blue" /> {contact.phone}</div>
+          <div className="flex items-center gap-3 text-[14.5px] text-ink/70"><Icon name="pin" size={17} className="text-blue" /> {contact.address}</div>
+          <div className="flex items-center gap-3 text-[14.5px] text-ink/70"><Icon name="clock" size={17} className="text-blue" /> {contact.hours}</div>
+        </div>
+      </div>
+      <div className="reveal-right bg-white border border-line rounded-3xl p-8 md:p-10" style={{transitionDelay:"100ms"}}>
+        {sent ? (
+          <div className="py-10 text-center">
+            <span className="w-14 h-14 rounded-full bg-blue-mist text-blue flex items-center justify-center mx-auto"><Icon name="check" size={22} /></span>
+            <h2 className="font-display text-xl font-semibold text-ink mt-5">Brief sent</h2>
+            <p className="text-[14.5px] text-ink/55 mt-2">Thanks — we'll follow up shortly.</p>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div className="grid sm:grid-cols-2 gap-5">
+              <Field label="Name" name="name" required />
+              <Field label="Company" name="company" />
+            </div>
+            <div className="grid sm:grid-cols-2 gap-5">
+              <Field label="Email" name="email" type="email" required />
+              <Field label="Phone / WhatsApp" name="phone" />
+            </div>
+            <Field label="Website" name="website" />
+            <div>
+              <p className="text-[13px] font-medium text-ink/70 mb-2.5">Services needed</p>
+              <div className="flex flex-wrap gap-2">
+                {SERVICES.map(s => (
+                  <button type="button" key={s.slug} onClick={()=>toggle(s.title)} className={"px-3.5 py-2 rounded-full text-[12.5px] border transition " + (services.includes(s.title) ? "bg-blue text-white border-blue" : "border-line text-ink/60")}>{s.title}</button>
+                ))}
+                <button type="button" onClick={()=>toggle("Twitch & YouTube Graphics")} className={"px-3.5 py-2 rounded-full text-[12.5px] border transition " + (services.includes("Twitch & YouTube Graphics") ? "bg-blue text-white border-blue" : "border-line text-ink/60")}>Twitch & YouTube Graphics</button>
+              </div>
+            </div>
+            <div>
+              <p className="text-[13px] font-medium text-ink/70 mb-2.5">Budget</p>
+              <div className="flex flex-wrap gap-2">
+                {budgets.map(b => (
+                  <button type="button" key={b} onClick={()=>setBudget(b)} className={"px-3.5 py-2 rounded-full text-[12.5px] border transition " + (budget===b ? "bg-blue text-white border-blue" : "border-line text-ink/60")}>{b}</button>
+                ))}
+              </div>
+            </div>
+            <div>
+              <label className="text-[13px] font-medium text-ink/70 block mb-2">Project details</label>
+              <textarea name="message" rows="4" className="w-full border border-line rounded-xl px-4 py-3 text-[14.5px] focus:border-blue outline-none" placeholder="What are you trying to achieve?"></textarea>
+            </div>
+            {error && <p className="text-[13px] text-red-600">{error}</p>}
+            <Button type="submit" className="w-full justify-center">{sending ? "Sending…" : "Send project brief"}</Button>
+          </form>
+        )}
+      </div>
+    </section>
+  );
+}
+function Field({ label, name, type="text", required }) {
+  return (
+    <div>
+      <label className="text-[13px] font-medium text-ink/70 block mb-2">{label}{required && <span className="text-blue"> *</span>}</label>
+      <input type={type} name={name} required={required} className="w-full border border-line rounded-xl px-4 py-3 text-[14.5px] focus:border-blue outline-none" />
+    </div>
+  );
+}
+
+/* ============================== ROUTER / APP ============================== */
+function NotFound() {
+  return (
+    <section className="pt-48 pb-28 max-w-[800px] mx-auto px-6 text-center">
+      <h1 className="font-display text-3xl font-semibold text-ink">Page not found</h1>
+      <Button href="#/" onClick={()=>goTo('#/')} className="mt-8">Back to home</Button>
+    </section>
+  );
+}
+function AppInner() {
+  const hash = useHashRoute();
+  const path = hash.replace(/^#/, "") || "/";
+  const parts = path.split("/").filter(Boolean);
+
+  let page;
+  if (parts.length === 0) page = <HomePage />;
+  else if (parts[0] === "services" && parts.length === 1) page = <ServicesOverviewPage />;
+  else if (parts[0] === "services" && parts.length === 2) page = <ServiceDetailPage slug={parts[1]} />;
+  else if (parts[0] === "twitch-youtube-graphics") page = <CreatorGraphicsPage />;
+  else if (parts[0] === "portfolio" && parts.length === 1) page = <PortfolioPage />;
+  else if (parts[0] === "portfolio" && parts.length === 2) page = <ProjectDetailPage slug={parts[1]} />;
+  else if (parts[0] === "case-studies") page = <CaseStudiesPage />;
+  else if (parts[0] === "about") page = <AboutPage />;
+  else if (parts[0] === "blog" && parts.length === 1) page = <BlogPage />;
+  else if (parts[0] === "blog" && parts.length === 2) page = <BlogPostPage slug={parts[1]} />;
+  else if (parts[0] === "contact") page = <ContactPage />;
+  else page = <NotFound />;
+
+  return (
+    <div className="min-h-screen flex flex-col">
+      <ScrollProgressBar />
+      <Navbar />
+      <main className="flex-1"><div key={path} className="route-fade">{page}</div></main>
+      <Footer />
+    </div>
+  );
+}
+function App() {
+  return <DataProvider><AppInner /></DataProvider>;
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>

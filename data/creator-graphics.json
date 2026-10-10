@@ -1,16 +1,16 @@
 {
   "items": [
     {
-      "title": "Editable logo piece",
+      "title": "Custom Logo Design",
       "category": "Logo design",
-      "description": "Distinct marks built to work at avatar size and full scale alike.",
-      "image": ""
+      "description": "Another streamer’s vision brought to life! ⚡🎨 Every detail crafted to give their channel its own unique identity. ",
+      "image": "/assets/uploads/whatsapp-image-2026-10-07-at-12.27.04-am.jpeg"
     },
     {
-      "title": "Editable banner piece",
+      "title": "Custom Twitch Banner Design",
       "category": "YouTube banners",
-      "description": "Channel art that reads clearly across every device crop.",
-      "image": ""
+      "description": "Cooked up a fresh look for a streamer’s channel 🎮⚡ Clean visuals, bold vibes, and a design that stands out!",
+      "image": "/assets/uploads/content.webp"
     },
     {
       "title": "Custom overlay Pack ",
@@ -31,28 +31,64 @@
       "image": "/assets/uploads/camo_2d_half_model_1.png"
     },
     {
-      "title": "Editable 3D model piece",
-      "category": "3D models",
-      "description": "Custom 3D avatars for VTuber and streaming setups.",
-      "image": ""
-    },
-    {
-      "title": "Editable thumbnail piece",
+      "title": "Custom YT thumbnail Design",
       "category": "YouTube thumbnails",
-      "description": "High-contrast thumbnails designed to earn the click.",
-      "image": ""
+      "description": "High-contrast thumbnails designed to earn the click. ",
+      "image": "/assets/uploads/whatsapp-image-2026-09-27-at-1.27.28-am.jpeg"
     },
     {
-      "title": "Editable stream screen piece",
+      "title": "Custom stream screen piece",
       "category": "Stream screens",
       "description": "Intermission, countdown and just-chatting screens that match the brand.",
-      "image": ""
+      "image": "/assets/uploads/the_touch_overlays-01.webp"
     },
     {
       "title": "Twitch Streamer Logo",
       "category": "Logo design",
       "image": "/assets/uploads/whatsapp-image-2026-10-06-at-6.31.27-am.jpeg",
       "description": "Custom made twitch logo design"
+    },
+    {
+      "title": "Custom Twitch Logo Design",
+      "category": "Logo design",
+      "description": "Cooked up a fresh identity for a streamer 🎮🔥 Custom-designed to match their vibe and make their brand stand out!",
+      "image": "/assets/uploads/whatsapp-image-2026-10-07-at-12.26.48-am.jpeg"
+    },
+    {
+      "title": "Custom Twitch Logo Design",
+      "category": "Logo design",
+      "description": "A custom logo made to match the energy behind the stream 🎮🖤 Clean, bold, and built to stand out!",
+      "image": "/assets/uploads/armyvetlife-preview.jpg"
+    },
+    {
+      "title": "Custom Twitch Logo Design",
+      "category": "Logo design",
+      "description": "Turning a streamer’s ideas into a brand they can truly call their own. 👾🔥",
+      "image": "/assets/uploads/save_20250414_175829.webp"
+    },
+    {
+      "title": "Custom Twitch Logo Design",
+      "category": "Logo design",
+      "description": "New streamer logo unlocked! 🎮✨ Designed from scratch to bring personality, style, and a unique vibe to their brand.",
+      "image": "/assets/uploads/weaponx-preview.jpg"
+    },
+    {
+      "title": "Custom Twitch Logo Design",
+      "category": "Logo design",
+      "description": "Not just another logo — a whole identity for a streamer’s brand. ⚡🎨 Had fun bringing this concept to life!",
+      "image": "/assets/uploads/ghost-preview-1-.jpg"
+    },
+    {
+      "title": "Custom Twitch Logo Design",
+      "category": "Logo design",
+      "description": "Giving a streamer’s brand its own signature look! 👀🔥 Custom-made with a style that stands out both on and off stream.",
+      "image": "/assets/uploads/viperona-preview.jpg.jpeg"
+    },
+    {
+      "description": "From an idea to a whole new streamer identity 🎮💥 Always love turning creative concepts into something unique!",
+      "category": "Logo design",
+      "title": "Custom Twitch Logo Design",
+      "image": "/assets/uploads/saucewalker-preview-2-.jpg"
     }
   ]
 }

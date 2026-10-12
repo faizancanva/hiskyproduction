@@ -806,6 +806,38 @@ function ResultsSection() {
   );
 }
 function CreatorSection() {
+  const { creatorGraphics } = useSiteData();
+  const ref = useReveal();
+  return (
+    <section ref={ref} className="py-24 bg-gradient-to-b from-navy-deep via-navy to-navy-deep relative overflow-hidden">
+      <ParallaxLayer factor={0.1} className="absolute -top-20 right-0 w-[500px] h-[500px]"><div className="blob blob-a w-full h-full bg-blue/25"></div></ParallaxLayer>
+      <ParallaxLayer factor={-0.1} className="absolute bottom-0 left-0 w-[300px] h-[300px]"><div className="blob blob-b w-full h-full bg-blue-bright/15"></div></ParallaxLayer>
+      <div className="max-w-[1240px] mx-auto px-6 relative">
+        <div className="max-w-xl reveal">
+          <p className="text-blue-bright text-sm font-medium mb-4">Twitch & YouTube Graphics</p>
+          <h2 className="font-display text-3xl md:text-[2.5rem] font-semibold text-white leading-[1.1]">Make your channel impossible to ignore.</h2>
+          <p className="mt-4 text-white/55 text-[16px]">Professional visual assets for streamers, YouTubers, gamers and creators who want their brand to look as good as their content.</p>
+          <Button href="#/twitch-youtube-graphics" onClick={()=>goTo('#/twitch-youtube-graphics')} variant="light" className="mt-8">Explore creator graphics</Button>
+        </div>
+        <div className="mt-14 grid grid-cols-2 sm:grid-cols-4 gap-4">
+          {CREATOR_CATEGORIES.map((c,i) => {
+            const match = (creatorGraphics || []).find(g => g.category === c.label && g.image);
+            const pic = match ? match.image : "";
+            return (
+              <div key={c.key} className="reveal group aspect-square rounded-2xl bg-white/[0.04] border border-white/10 p-4 flex flex-col justify-end transition-all duration-300 hover:bg-white/[0.08] hover:border-blue-bright/40 hover:-translate-y-1.5 cursor-default" style={{transitionDelay:(i*40)+"ms", position:"relative", overflow:"hidden", backgroundImage: pic ? 'url("' + pic + '")' : "none", backgroundSize:"cover", backgroundPosition:"center"}}>
+                {pic && <div style={{position:"absolute", top:0, left:0, right:0, bottom:0, background:"linear-gradient(to top, rgba(5,11,36,0.9) 0%, rgba(5,11,36,0.15) 60%)"}}></div>}
+                <span className="w-8 h-8 rounded-lg bg-blue-bright/20 text-blue-bright flex items-center justify-center mb-2 transition-transform duration-300 group-hover:scale-110" style={{position:"relative"}}><Icon name="sparkle" size={14} /></span>
+                <p className="text-white text-[13px] font-medium" style={{position:"relative"}}>{c.label}</p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CreatorSectionOld() {
   const ref = useReveal();
   return (
     <section ref={ref} className="py-24 bg-gradient-to-b from-navy-deep via-navy to-navy-deep relative overflow-hidden">

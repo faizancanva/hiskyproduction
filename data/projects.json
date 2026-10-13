@@ -1,76 +1,95 @@
 {
   "items": [
     {
+      "challenge": "The brand needed stronger organic visibility and struggled to attract high intent visitors through search. Important purchase-driven keywords were under performing, limiting qualified traffic and growth opportunities.",
+      "approach": "We restructured the SEO strategy around high-intent keywords, optimized key landing pages, improved search visibility, and built a data driven tracking system to monitor keyword rankings, clicks, impressions, and organic traffic.",
       "slug": "northline-search",
-      "title": "Northline Search Growth",
-      "category": "Marketing",
-      "tag": "Google Ads",
       "desc": "Restructured search campaigns around purchase-intent keywords.",
-      "challenge": "Editable — describe the client's starting problem here.",
-      "approach": "Editable — describe the strategy and execution here.",
-      "services": ["Google Ads", "Conversion Tracking"],
-      "results": "Editable — add the measurable result here.",
-      "image": ""
+      "results": "A clearer SEO growth strategy with improved keyword targeting, better performance tracking, and a scalable framework for increasing qualified organic traffic and long term search visibility.",
+      "title": "Northline Search Growth",
+      "tag": "Google Ads",
+      "image": "/assets/uploads/futuristic-seo-analytics-dashboard-laptop.png",
+      "services": [
+        "Google Ads",
+        "Conversion Tracking"
+      ],
+      "category": "Marketing"
     },
     {
+      "challenge": "Formwell needed a cohesive brand identity that would communicate trust, balance, and modern living. Its visual presence lacked the consistency needed to stand out and create a memorable impression across digital and print touch points.",
+      "approach": "We developed a refined visual identity built around a distinctive logo, a calm blue and white colour palette, clean typography, and consistent brand elements. The identity was applied across website visuals, stationery, business cards, and brand guidelines to create a unified experience.",
       "slug": "formwell-rebrand",
-      "title": "Formwell Rebrand",
-      "category": "Branding",
-      "tag": "Identity",
       "desc": "A full identity system built around a single confident mark.",
-      "challenge": "Editable — describe the client's starting problem here.",
-      "approach": "Editable — describe the strategy and execution here.",
-      "services": ["Brand Identity", "Logo Design"],
-      "results": "Editable — add the measurable result here.",
-      "image": ""
+      "results": "A cohesive and recognizable brand system with consistent visuals across digital and print materials, a stronger professional presence, and a scalable identity designed to support future growth.",
+      "title": "Formwell Rebrand",
+      "tag": "Identity",
+      "image": "/assets/uploads/formwell-brand-identity-showcase.png",
+      "services": [
+        "Brand Identity",
+        "Logo Design"
+      ],
+      "category": "Branding"
     },
     {
+      "challenge": "Pier & Co. needed a modern online storefront that could showcase its coastal inspired home ware while making product discovery simple. The goal was to create a polished shopping experience that communicates the brand's aesthetic and encourages customers to explore the collection.",
+      "approach": "We designed a clean, responsive e-commerce experience with editorial style product photography, intuitive navigation, curated shopping categories, and prominent calls to action. The layout was optimized for both desktop and mobile, keeping the shopping journey simple, cohesive, and visually engaging.",
       "slug": "pier-and-co-site",
-      "title": "Pier & Co. Website",
-      "category": "Web Design",
-      "tag": "Ecommerce",
       "desc": "A conversion-focused storefront rebuilt from the ground up.",
-      "challenge": "Editable — describe the client's starting problem here.",
-      "approach": "Editable — describe the strategy and execution here.",
-      "services": ["Web Design", "UI/UX"],
-      "results": "Editable — add the measurable result here.",
-      "image": ""
+      "results": "A refined storefront concept with a consistent visual identity, clearer product discovery, and a streamlined shopping journey designed to support customer engagement and online sales.",
+      "title": "Pier & Co. Website",
+      "tag": "Ecommerce",
+      "image": "/assets/uploads/pier-co.-coastal-homeware-mockup.png",
+      "services": [
+        "Web Design",
+        "UI/UX"
+      ],
+      "category": "Web Design"
     },
     {
+      "challenge": "The brand needed a consistent social media presence without the complexity of planning every post from scratch. Content lacked a structured publishing schedule, making it harder to maintain a cohesive message and engage audiences consistently.",
+      "approach": "We developed a 12-week social media content calendar organized around three core pillars: brand awareness, product education, and community engagement. We created a balanced mix of feed posts, reels, stories, and interactive content, supported by a clear publishing schedule and reusable visual templates.",
       "slug": "loop-social-calendar",
-      "title": "Loop Social Calendar",
-      "category": "Social Media",
-      "tag": "Content",
       "desc": "A twelve-week content system built around three brand pillars.",
-      "challenge": "Editable — describe the client's starting problem here.",
-      "approach": "Editable — describe the strategy and execution here.",
-      "services": ["Social Strategy", "Content Design"],
-      "results": "Editable — add the measurable result here.",
-      "image": ""
+      "results": "A structured content system designed to simplify content planning, maintain brand consistency, and support more consistent audience engagement across social platforms.",
+      "title": "Loop Social Calendar",
+      "tag": "Content",
+      "image": "/assets/uploads/loop-social-media-planner-workspace.png",
+      "services": [
+        "Social Strategy",
+        "Content Design"
+      ],
+      "category": "Social Media"
     },
     {
-      "slug": "vexel-stream-kit",
-      "title": "Vexel Stream Kit",
-      "category": "Twitch & YouTube",
-      "tag": "Overlays",
+      "challenge": "The Touch needed a distinctive streaming identity that could stand out in a crowded creator space. The existing presentation needed a cohesive visual style across live streams, YouTube content, and community interactions.",
+      "approach": "We developed a bold, gaming-inspired visual system featuring electric blue accents, dark backgrounds, custom stream overlays, starting and ending screens, chat panels, alerts, emotes, and coordinated YouTube graphics. Every element was designed to create a consistent identity across platforms.",
+      "slug": "The-Touch-stream-kit",
       "desc": "A full overlay, emote and thumbnail system for a growing channel.",
-      "challenge": "Editable — describe the client's starting problem here.",
-      "approach": "Editable — describe the strategy and execution here.",
-      "services": ["Overlays", "Emotes", "Thumbnails"],
-      "results": "Editable — add the measurable result here.",
-      "image": ""
+      "results": "A unified streaming brand with coordinated visuals across Twitch and YouTube, a more recognizable on-screen presence, and a flexible graphics system designed to grow alongside The Touch's channel.",
+      "title": "The Touch Stream Kit",
+      "tag": "Overlays",
+      "image": "/assets/uploads/the-touch-neon-streaming-command-centre.png",
+      "services": [
+        "Overlays",
+        "Emotes",
+        "Thumbnails"
+      ],
+      "category": "Twitch & YouTube"
     },
     {
+      "challenge": "Arcline needed a more structured approach to paid social advertising, with multiple creative angles to test and no clear framework for identifying which messages resonated most with potential customers. The goal was to connect creative testing with measurable campaign performance.",
+      "approach": "We developed a creative-first Meta Ads testing framework built around five advertising angles: problem solution, product benefits, testimonials, lifestyle, and promotional offers. We organized campaign tracking around key metrics, including click-through rate, cost per click, purchases, and return on ad spend, to support data-driven creative decisions.",
       "slug": "arcline-meta-funnel",
-      "title": "Arcline Meta Funnel",
-      "category": "Marketing",
-      "tag": "Meta Ads",
       "desc": "A creative-first testing framework across five ad angles.",
-      "challenge": "Editable — describe the client's starting problem here.",
-      "approach": "Editable — describe the strategy and execution here.",
-      "services": ["Meta Ads", "Creative Testing"],
-      "results": "Editable — add the measurable result here.",
-      "image": ""
+      "results": "A structured advertising framework designed to compare creative performance, identify promising ad concepts, and guide future campaign optimization using measurable performance indicators.",
+      "title": "Arcline Meta Funnel",
+      "tag": "Meta Ads",
+      "image": "/assets/uploads/arcline-meta-analytics-dashboard.png",
+      "services": [
+        "Meta Ads",
+        "Creative Testing"
+      ],
+      "category": "Marketing"
     }
   ]
 }

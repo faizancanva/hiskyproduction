@@ -1145,6 +1145,52 @@ function CaseStudiesPage() {
 
 /* ============================== PAGE: ABOUT ============================== */
 function AboutPage() {
+  const ref = useReveal();
+  return (
+    <>
+      <section className="pt-40 pb-20 max-w-[1240px] mx-auto px-6">
+        <div className="reveal">
+          <p className="text-blue text-sm font-medium mb-4">About</p>
+          <h1 className="font-display text-4xl md:text-5xl font-semibold text-ink max-w-2xl leading-[1.1]">We build digital experiences that move businesses forward.</h1>
+        </div>
+      </section>
+      <section className="max-w-[1240px] mx-auto px-6 pb-24 grid md:grid-cols-2 gap-14">
+        <div className="reveal-left">
+          <h2 className="font-display text-2xl font-semibold text-ink mb-4">Who we are</h2>
+          <p className="text-[15px] text-ink/65 leading-relaxed">Hisky Production is a digital growth and creative production company. We work across paid media, SEO, social media, AI automation, web design and graphic design — and build creative assets for streamers and creators — so a brand's marketing, technology and creative work move in the same direction.</p>
+        </div>
+        <div className="reveal-right" style={{transitionDelay:"80ms"}}>
+          <h2 className="font-display text-2xl font-semibold text-ink mb-4">Our mission</h2>
+          <p className="text-[15px] text-ink/65 leading-relaxed">To help businesses build stronger brands and grow through modern digital strategy — combining performance marketing with creative and technical execution, rather than treating them as separate services.</p>
+        </div>
+      </section>
+      <section className="bg-paper py-24">
+        <div className="max-w-[1240px] mx-auto px-6">
+          <div className="reveal"><SectionHeading eyebrow="Difference" title="What makes us different" /></div>
+          <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {[["target","Strategy"],["palette","Creativity"],["code","Technology"],["trend","Performance"]].map(([icon,label],i) => (
+              <div key={label} className="reveal group bg-white rounded-2xl border border-line p-6 transition-all duration-300 hover:shadow-lg hover:shadow-blue/10 hover:-translate-y-1" style={{transitionDelay:(i*50)+"ms"}}>
+                <span className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue to-blue-deep text-white flex items-center justify-center shadow-lg shadow-blue/25 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6"><Icon name={icon} size={17} /></span>
+                <p className="font-display text-[16px] font-semibold text-ink mt-4">{label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section className="max-w-[1240px] mx-auto px-6 py-24">
+        <div className="reveal"><SectionHeading eyebrow="Values" title="Our values" /></div>
+        <div className="mt-10 flex flex-wrap gap-3">
+          {["Creativity","Results","Transparency","Innovation","Growth"].map((v,i) => (
+            <span key={v} className="reveal px-5 py-2.5 rounded-full border border-line bg-white text-[14px] text-ink/70 transition-all duration-300 hover:border-blue/40 hover:text-blue hover:-translate-y-0.5" style={{transitionDelay:(i*40)+"ms"}}>{v}</span>
+          ))}
+        </div>
+      </section>
+      <CTASection title="Let's build something great together." sub="Tell us about your business and where you want it to go." />
+    </>
+  );
+}
+
+function AboutPageOld() {
   const { team } = useSiteData();
   const ref = useReveal([team.length]);
   return (

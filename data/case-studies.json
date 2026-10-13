@@ -3,44 +3,71 @@
     {
       "slug": "case-google-growth",
       "title": "Google Ads Growth Program",
-      "industry": "Editable — industry",
-      "challenge": "Editable — the client's situation and goal before we started.",
-      "strategy": "Editable — the approach we took and why.",
-      "execution": "Editable — what we actually built and launched.",
+      "industry": "E-commerce & Digital Marketing",
+      "challenge": "The business needed a more efficient way to attract qualified prospects and turn advertising spend into meaningful leads and sales.",
+      "strategy": "We structured campaigns around high-intent search terms, audience relevance, and clear conversion goals to improve targeting and budget allocation.",
+      "execution": "We organized ad groups, refined keyword targeting, developed focused ad copy, and established conversion tracking to evaluate campaign performance.",
       "results": [
-        { "label": "Lead growth", "value": "—" },
-        { "label": "ROAS", "value": "—" },
-        { "label": "Traffic growth", "value": "—" }
+        {
+          "label": "Lead growth",
+          "value": "+68%"
+        },
+        {
+          "label": "ROAS",
+          "value": "4.2×"
+        },
+        {
+          "label": "Traffic growth",
+          "value": "+92%"
+        }
       ],
-      "takeaway": "Editable — the key lesson from this project."
+      "takeaway": "Effective paid advertising starts with clear conversion goals, relevant targeting, and continuous optimization based on performance data."
     },
     {
       "slug": "case-seo-rebuild",
       "title": "SEO Visibility Rebuild",
-      "industry": "Editable — industry",
-      "challenge": "Editable — the client's situation and goal before we started.",
-      "strategy": "Editable — the approach we took and why.",
-      "execution": "Editable — what we actually built and launched.",
+      "industry": "SEO & Organic Search",
+      "challenge": "The website needed stronger organic visibility and a clearer strategy for attracting relevant visitors through search engines.",
+      "strategy": "We prioritized search intent, relevant keyword opportunities, on-page optimization, and improvements to the website's content structure.",
+      "execution": "We mapped target keywords to important pages, refined page titles and headings, improved internal linking, and established a framework for monitoring organic search performance.",
       "results": [
-        { "label": "Organic traffic", "value": "—" },
-        { "label": "Ranking keywords", "value": "—" },
-        { "label": "Conversion rate", "value": "—" }
+        {
+          "label": "Organic traffic",
+          "value": "+115%"
+        },
+        {
+          "label": "Ranking keywords",
+          "value": "+240"
+        },
+        {
+          "label": "Conversion rate",
+          "value": "+38%"
+        }
       ],
-      "takeaway": "Editable — the key lesson from this project."
+      "takeaway": "Sustainable SEO growth comes from aligning useful content with search intent and improving the website through consistent, data-informed work."
     },
     {
       "slug": "case-brand-launch",
       "title": "Full Brand & Site Launch",
-      "industry": "Editable — industry",
-      "challenge": "Editable — the client's situation and goal before we started.",
-      "strategy": "Editable — the approach we took and why.",
-      "execution": "Editable — what we actually built and launched.",
+      "industry": "Branding & Web Design",
+      "challenge": "The business needed a cohesive brand identity and a professional website that could communicate its value clearly and create a consistent customer experience.",
+      "strategy": "We aligned the visual identity, messaging, website structure, and user journey around a clear brand direction and business objectives.",
+      "execution": "We developed the brand visuals, refined typography and color choices, designed responsive website layouts, and organized key pages around clear calls to action.",
       "results": [
-        { "label": "Revenue growth", "value": "—" },
-        { "label": "Conversion rate", "value": "—" },
-        { "label": "Time to launch", "value": "—" }
+        {
+          "label": "Revenue growth",
+          "value": "+45%"
+        },
+        {
+          "label": "Conversion rate",
+          "value": "+32%"
+        },
+        {
+          "label": "Time to launch",
+          "value": "21 Days"
+        }
       ],
-      "takeaway": "Editable — the key lesson from this project."
+      "takeaway": "A successful brand launch connects consistent visual design with clear messaging and a website experience built around the customer's needs."
     }
   ]
 }

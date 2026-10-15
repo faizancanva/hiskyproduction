@@ -400,8 +400,12 @@ function Logo({ light }) {
   const initial = (brand.siteName || "H").trim().charAt(0).toUpperCase() || "H";
   return (
     <a href="#/" onClick={()=>goTo('#/')} className="flex items-center gap-2.5 shrink-0">
-      {brand.logo ? (
-        <img src={brand.logo} alt={brand.siteName} className="w-[76px] h-8 rounded-lg object-contain shrink-0" />
+      {brand.logo ? (    
+<img
+  src={brand.logo}
+  alt={brand.siteName}
+  className="w-[76px] h-8 object-cover object-center shrink-0"
+/>
       ) : (
         <span className={"w-8 h-8 rounded-lg flex items-center justify-center font-display font-bold text-[15px] " + (light ? "bg-white text-blue" : "bg-gradient-to-br from-blue to-blue-deep text-white shadow-md shadow-blue/30")}>{initial}</span>
       )}

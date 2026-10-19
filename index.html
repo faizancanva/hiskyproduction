@@ -401,7 +401,7 @@ function Logo({ light }) {
   return (
     <a href="#/" onClick={()=>goTo('#/')} className="flex items-center gap-2.5 shrink-0">
       {brand.logo ? (    
-<img src={brand.logo} alt={brand.siteName} className="shrink-0" style={{height:"40px", width:"auto", maxWidth:"170px", objectFit:"contain", display:"block", background: light ? "#fff" : "transparent", padding: light ? "4px 8px" : "0", borderRadius: light ? "8px" : "0"}} />
+<img src={brand.logo} alt={brand.siteName} className="shrink-0" style={{height:"48px", width:"auto", maxWidth:"170px", objectFit:"contain", display:"block", background: light ? "#fff" : "transparent", padding: light ? "4px 8px" : "0", borderRadius: light ? "8px" : "0"}} />
       ) : (
         <span className={"w-8 h-8 rounded-lg flex items-center justify-center font-display font-bold text-[15px] " + (light ? "bg-white text-blue" : "bg-gradient-to-br from-blue to-blue-deep text-white shadow-md shadow-blue/30")}>{initial}</span>
       )}

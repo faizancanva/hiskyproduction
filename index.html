@@ -495,8 +495,8 @@ function Footer() {
               {brand.footerDescription}
             </p>
             <div className="flex gap-3 mt-6">
-              {["instagram","facebook","linkedin"].map((i) => (
-                <a key={i} href="#" className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center hover:border-white/40 transition"><Icon name={i} size={15} /></a>
+              {[["instagram","https://www.instagram.com/hiskyproductionllc/"],["facebook","https://www.facebook.com/profile.php?id=61595420278354"],["linkedin","https://www.linkedin.com/company/hiskyproductionllc/"]].filter((s) => s[1]).map((s) => (
+<a key={s[0]} href={s[1]} target="_blank" rel="noopener noreferrer" aria-label={s[0]} className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center hover:border-white/40 transition"><Icon name={s[0]} size={15} /></a>
               ))}
             </div>
           </div>

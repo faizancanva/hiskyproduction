@@ -1,24 +1,17 @@
 {
   "items": [
     {
-      "name": " Alex Morgan",
-      "role": "Marketing Manager",
-      "company": "Northline Digital",
-      "quote": "The campaign strategy was well-organized, and the entire process felt structured from start to finish. Communication was clear, and the focus on performance made the experience smooth.",
+      "name": "Sean Garret",
+      "role": "Content creator",
+      "company": "Psyko_The_Clown",
+      "quote": "I freaking love the design.",
       "photo": ""
     },
     {
-      "name": "Sophie Bennett",
-      "role": "Brand Director",
-      "company": "Pier & Co.",
-      "quote": "The website concept captured the look and feel we wanted while keeping the user experience clean and intuitive. The design feels polished, modern, and easy to navigate.",
-      "photo": ""
-    },
-    {
-      "name": "Daniel Reed",
-      "role": "Creative Lead",
-      "company": "The Touch",
-      "quote": "The new visual direction feels much more cohesive and professional. Every element works together, from the overall identity to the smaller design details. The result is exactly the kind of presentation we wanted.",
+      "name": "Sir Mytholoclese",
+      "role": "Content creator",
+      "company": "Myth with no name ",
+      "quote": "Design is awesome, just what i needed! \n",
       "photo": ""
     }
   ]
